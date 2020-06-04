@@ -53,7 +53,7 @@ OBS: Se a aplicação iniciar com o Expo, escolha entre abrir em Android, IOS ou
 
 <h3>Status do Projeto:</h3>
 Em desenvolvimento :warning: <br/>
-Essa versão é um VPN do projeto.
+Essa versão é um MVP do projeto.
 <br/><br/>
 
 <h3>Linguagens, dependencias e libs utilizadas: :books:</h3>
