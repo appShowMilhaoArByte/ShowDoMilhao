@@ -24,7 +24,7 @@ const styles = {
     styleButton: {
         borderColor: '#ffdd55',
         height: 40,
-        width: 180,
+        width: 120,
         backgroundColor: '#9a031e',
         borderWidth: 2,
         margin: 20,

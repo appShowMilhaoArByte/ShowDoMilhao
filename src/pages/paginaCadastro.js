@@ -94,19 +94,19 @@ const styles = StyleSheet.create({
     caixaDeLogin: {
         width: '85%',
         flex: 2,
-        backgroundColor: 'gold',
+        backgroundColor: '#ffdd55',
         alignSelf: 'center',
-        borderRadius: 15,
-        borderColor: '#ffdd55',
-        borderWidth: 1,
+        borderRadius: 30,
+        borderColor: 'gold',
+        borderWidth: 2,
         paddingHorizontal: 10,
     },
     entradaDeTexto: {
         width: '98%',
         height: 30,
         borderWidth: 2,
-        borderColor: 'black',
-        borderRadius: 5,
+        borderColor: '#172178',
+        borderRadius: 10,
         marginVertical: 8,
         marginHorizontal: 2,
         backgroundColor: '#c4c4c4'
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     textoCaixaDeLogin: {
         paddingHorizontal: 6,
         paddingTop: 6,
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold'
     },
     containerButton: {
@@ -123,12 +123,12 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'space-evenly',
         alignSelf: 'center',
-        backgroundColor: '#b71b1b',
+        backgroundColor: '#9a031e',
         width: 150,
         height: 50,
         shadowColor: "#000",
-        borderColor: 'gold',
-        borderWidth: 1,
+        borderColor: '#ffdd55',
+        borderWidth: 2,
         marginVertical: 60,
         shadowOffset: {
             width: 0,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         textAlign: "center",
-        fontSize: 18,
-        color: '#EBCD06',
+        fontSize: 19,
+        color: '#ffffff',
     }
 })

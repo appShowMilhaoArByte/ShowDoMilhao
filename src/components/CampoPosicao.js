@@ -7,7 +7,7 @@ const CampoPosicao = (props) => {
         <TouchableOpacity style={styles.styleButton}
             onPress={props.onPress}
         >
-            <Text style={{ color: '#ffffff' }}>{props.title}</Text>
+            <Text style={{ color: '#ffffff', fontSize: 16 }}>{props.title}</Text>
         </TouchableOpacity>
 
     );
@@ -25,7 +25,7 @@ const styles = {
         borderColor: '#ffdd55',
         height: 40,
         width: 350,
-        backgroundColor: '#46637b',
+        backgroundColor: '#9a031e',
         borderWidth: 2,
         margin: 20,
         borderRadius: 11,

@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
     caixaDeLogin: {
         width: '85%',
         flex: 1,
-        backgroundColor: 'gold',
+        backgroundColor: '#ffdd55',
         alignSelf: 'center',
-        borderRadius: 15,
+        borderRadius: 30,
         borderColor: '#ffdd55',
         borderWidth: 1,
         paddingHorizontal: 10,
@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
         width: '98%',
         height: 30,
         borderWidth: 2,
-        borderColor: 'black',
-        borderRadius: 5,
+        borderColor: '#172178',
+        borderRadius: 10,
         marginVertical: 8,
         marginHorizontal: 2,
         backgroundColor: '#c4c4c4'
@@ -79,12 +79,12 @@ const styles = StyleSheet.create({
     textoLogin: {
         paddingHorizontal: 6,
         marginTop: 20,
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: 'bold',
     },
     textoSenha: {
         paddingHorizontal: 6,
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold'
     },
     botaoCadastrar: {
@@ -99,12 +99,12 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'space-evenly',
         alignSelf: 'center',
-        backgroundColor: '#b71b1b',
+        backgroundColor: '#9a031e',
         width: 150,
         height: 50,
         shadowColor: "#000",
-        borderColor: 'gold',
-        borderWidth: 1,
+        borderColor: '#ffdd55',
+        borderWidth: 2,
         marginVertical: 60,
         shadowOffset: {
             width: 0,
@@ -118,6 +118,6 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: "center",
         fontSize: 18,
-        color: '#EBCD06',
+        color: '#ffffff',
     }
 })

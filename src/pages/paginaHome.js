@@ -13,6 +13,7 @@ const PaginaHome = ({ navigation }) => {
             <View style={styles.containerButton}>
                 <Botao title={'Jogar'} onPress={() => { navigation.navigate('PaginaJogo') }} />
                 <Botao title={'Ranking'} onPress={() => { navigation.navigate('PaginaRanking') }} />
+                <Botao title={'Meu Perfil'} onPress={() => {navigation.navigate('PaginaPerfil')}}/>
             </View>
 
         </View>
