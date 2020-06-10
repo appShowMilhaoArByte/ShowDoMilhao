@@ -1,9 +1,37 @@
 import 'react-native-gesture-handler'
-import React from 'react'
-import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar } from 'react-native'
+import React, { useState } from 'react'
+import { Alert, Text, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar } from 'react-native'
 import logo from '../images/logo.png'
+import efetuarLogin from '../components/validaLogin'
 
 const PaginaLogin = ({ navigation }) => {
+    const [login, setLogin] = useState('')
+    const [senha, setSenha] = useState('')
+
+    
+    const isLoginValid = () => login != '' && senha != '';
+
+    const validacaologin = () => {
+        if (!isLoginValid()) {
+            return Alert.alert("Preencha os campos obrigatórios!")
+        }        
+
+        efetuarLogin()
+            .then(resposta => {
+                let loginApi = resposta.map(nickname => nickname.nickname);
+                let senhaApi = resposta.map(password => password.password);
+                
+                if( loginApi.indexOf(login) >= 0 && senha === senhaApi[loginApi.indexOf(login)] ){
+                        navigation.navigate('PaginaHome ')  
+                } else {
+                    return Alert.alert("Dados incorretos!")
+                }
+
+            })
+            .catch(err => Alert.alert('Não respondendo. ', err.message))
+        
+    }
+    
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={'#172178'}/>
@@ -13,13 +41,18 @@ const PaginaLogin = ({ navigation }) => {
             <View style={styles.caixaDeLogin}>
                 <Text style={styles.textoLogin}>Login:</Text>
                 <TextInput style={styles.entradaDeTexto}
-                    placeholder='  Seu login'
-                    placeholderTextColor='gray'
+                   placeholder='  Seu login'
+                   placeholderTextColor='gray'
+                   value={login}
+                   onChangeText={login => { setLogin(login) }}
                 />
                 <Text style={styles.textoSenha}>Senha:</Text>
                 <TextInput style={styles.entradaDeTexto}
-                    placeholder='  Sua senha'
-                    placeholderTextColor='gray'
+                   placeholder='  Sua senha'
+                   placeholderTextColor='gray'
+                   secureTextEntry={true}
+                   value={senha}
+                   onChangeText={senha => { setSenha(senha) }}
                 />
             </View>
             <View>
@@ -34,7 +67,7 @@ const PaginaLogin = ({ navigation }) => {
             </View>
             <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}
-                    onPress={() => { navigation.navigate('PaginaHome') }}>
+                    onPress={validacaologin}>
                     <Text style={styles.buttonText}>Entrar</Text>
                 </TouchableOpacity>
             </View>
@@ -59,9 +92,9 @@ const styles = StyleSheet.create({
     caixaDeLogin: {
         width: '85%',
         flex: 1,
-        backgroundColor: '#ffdd55',
+        backgroundColor: 'gold',
         alignSelf: 'center',
-        borderRadius: 30,
+        borderRadius: 15,
         borderColor: '#ffdd55',
         borderWidth: 1,
         paddingHorizontal: 10,
@@ -70,8 +103,8 @@ const styles = StyleSheet.create({
         width: '98%',
         height: 30,
         borderWidth: 2,
-        borderColor: '#172178',
-        borderRadius: 10,
+        borderColor: 'black',
+        borderRadius: 5,
         marginVertical: 8,
         marginHorizontal: 2,
         backgroundColor: '#c4c4c4'
@@ -79,12 +112,12 @@ const styles = StyleSheet.create({
     textoLogin: {
         paddingHorizontal: 6,
         marginTop: 20,
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: 'bold',
     },
     textoSenha: {
         paddingHorizontal: 6,
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold'
     },
     botaoCadastrar: {
@@ -99,12 +132,12 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'space-evenly',
         alignSelf: 'center',
-        backgroundColor: '#9a031e',
+        backgroundColor: '#b71b1b',
         width: 150,
         height: 50,
         shadowColor: "#000",
-        borderColor: '#ffdd55',
-        borderWidth: 2,
+        borderColor: 'gold',
+        borderWidth: 1,
         marginVertical: 60,
         shadowOffset: {
             width: 0,
@@ -118,6 +151,6 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: "center",
         fontSize: 18,
-        color: '#ffffff',
+        color: '#EBCD06',
     }
 })
