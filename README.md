@@ -2,8 +2,18 @@
 
 <h2 align="center">Jogo inspirado no famoso programa de tv de perguntas e respostas.</h2>
 <br/>
+<h3>Índice:</h3>
 
-<h3>Como Jogar:</h4>
+- [Como jogar](#como-jogar)
+- [Como rodar a aplicação](#como-rodar-a-aplicação)
+- [Status do Projeto](#status-do-projeto)
+- [Linguagens, dependencias e libs utilizadas](#linguagens-dependencias-e-libs-utilizadas-books)
+- [Projeto](#projeto)
+- [Desenvolvedores](#desenvolvedores)
+
+<br/>
+<hr/>
+<h3>Como jogar:</h4>
 <ul>
 <li>Inicie o jogo e responda as perguntas.</li>
 <li>Cada pergunta vale uma determinada pontuação.</li>
@@ -38,21 +48,21 @@ Execute a aplicação:
 npm start
 ```
 
-OBS: Se a aplicação iniciar com o Expo, escolha entre as opções: rodar em Android, IOS (Ler QR Code) ou browser.
+OBS: Se a aplicação iniciar com o Expo, escolha entre abrir em Android, IOS ou browser (Para rodar no celular, use o QR Code).
 <br/><br/>
 
 <h3>Status do Projeto:</h3>
 Em desenvolvimento :warning: <br/>
-Essa versão é um VPN do projeto.
+Essa versão é um MVP do projeto.
 <br/><br/>
 
 <h3>Linguagens, dependencias e libs utilizadas: :books:</h3>
-<b>React Native<b>:  https://reactnative.dev/docs/getting-started/ <br/>
+<b>React Native</b>:  https://reactnative.dev/docs/getting-started/ <br/>
 <b>Expo</b>: https://docs.expo.io/ <br/>
-<b>Babel</b>: https://babeljs.io/docs/en/
-<br/>
+<b>Babel</b>: https://babeljs.io/docs/en/ <br/>
 
-<p>Projeto desenvolvido em grupo, no curso de Front-End Mobile da Arbyte</p>
+<h3>Projeto:</h3>
+Projeto do curso de Front-End Mobile da Arbyte
 <br/>
 
 <h3>Desenvolvedores:</h3>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, StatusBar } from 'react-native'
 import Perguntas from '../components/monstraPerguntas'
 import Alternativas from '../components/alternativas'
@@ -17,14 +17,11 @@ const PaginaJogo = ({ navigation }) => {
     const [buttonPulo, setButtonPulo] = useState(false)
 
     const numero = geraDificiculdade(perguntasRespondidas, indicePergunta)
-    console.log('numero: ', numero);
     const pergunta = perguntas[numero]
     const alternativa = pergunta.Answers
     const correta = pergunta.CorrectAnswer
 
-
     const reiniciaJogo = () => {
-        console.log('reinica')
         setPerguntasRespondidas({})
         geraNovaPergunta(0)
         setPulo(0)
@@ -33,17 +30,14 @@ const PaginaJogo = ({ navigation }) => {
     
 
     const notificaResposta = (acertou) => {
-        console.log('indicePergunta: ', indicePergunta);
         if(indicePergunta === 14){
             setButtonPulo(true)
         }
         if (indicePergunta > 14) {
-            reiniciaJogo()
             navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: acertou } })
         } else if (acertou) {
             geraNovaPergunta(indicePergunta + 1)
         } else {
-            reiniciaJogo()
             navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: acertou } })
         }
     }
@@ -54,7 +48,7 @@ const PaginaJogo = ({ navigation }) => {
             <Perguntas pergunta={pergunta} />
             <Alternativas alternativas={alternativa} correta={correta} notificaResposta={notificaResposta} />
             <Posicao indice={indicePergunta} notificaResposta={notificaResposta} />
-            <Botoes  buttonPulo={buttonPulo} setButtonPulo={setButtonPulo} setPulo={setPulo} pulo={pulo} reiniciaJogo={reiniciaJogo} navigation={navigation} indicePergunta={indicePergunta} />
+            <Botoes  buttonPulo={buttonPulo} setButtonPulo={setButtonPulo} setPulo={setPulo} pulo={pulo} navigation={navigation} indicePergunta={indicePergunta} />
         </View>
     )
 }
