@@ -2,7 +2,7 @@ import 'react-native-gesture-handler'
 import React, { useState } from 'react'
 import { Text, Alert, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar, ScrollView } from 'react-native'
 import logo from '../images/logo.png'
-import cadastrar from '../components/validaCadastro'
+import cadastrar from '../components/cadastrar'
 
 const PaginaCadastro = ({ navigation }) => {
     const [email, setEmail] = useState('')

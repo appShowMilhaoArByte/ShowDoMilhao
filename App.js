@@ -2,6 +2,8 @@ import 'react-native-gesture-handler'
 import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 
 import Inicio from './src/pages/Inicio'
 import PaginaHome from './src/pages/paginaHome'
@@ -15,26 +17,28 @@ import PaginaEsqueceuASenha from './src/pages/paginaEsqueceuASenha'
 import PaginaPerfil from './src/pages/paginaPerfil';
 
 const Stack = createStackNavigator()
+const store = createStore()
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Inicio" screenOptions={{ headerShown: false, transitionSpec: { open: config, close: config  }}} >
-
-        <Stack.Screen name="Inicio" component={Inicio}  />
-        <Stack.Screen name="PaginaLogin" component={PaginaLogin} />
-        <Stack.Screen name="PaginaCadastro" component={PaginaCadastro} />
-        <Stack.Screen name="PaginaEsqueceuASenha" component={PaginaEsqueceuASenha} />
-        <Stack.Screen name="PaginaHome" component={PaginaHome} />
-        <Stack.Screen name="PaginaPerfil" component={PaginaPerfil}/>
-        <Stack.Screen name="PaginaJogo" component={PaginaJogo} />
-        <Stack.Screen name="PaginaRanking" component={PaginaRanking} />
-        <Stack.Screen name="Parou" component={PaginaFimDeJogo} />
-        <Stack.Screen name="Derrota" component={PaginaDerrota} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Inicio" screenOptions={{ headerShown: false, transitionSpec: { open: config, close: config  }}} >
+          <Stack.Screen name="Inicio" component={Inicio}  />
+          <Stack.Screen name="PaginaLogin" component={PaginaLogin} />
+          <Stack.Screen name="PaginaCadastro" component={PaginaCadastro} />
+          <Stack.Screen name="PaginaEsqueceuASenha" component={PaginaEsqueceuASenha} />
+          <Stack.Screen name="PaginaHome" component={PaginaHome} />
+          <Stack.Screen name="PaginaJogo" component={PaginaJogo} />
+          <Stack.Screen name="PaginaRanking" component={PaginaRanking} />
+          <Stack.Screen name="Parou" component={PaginaFimDeJogo} />
+          <Stack.Screen name="Derrota" component={PaginaDerrota} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   )
 }
+
 const config = {
   animation: 'spring',
   config: {
