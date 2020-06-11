@@ -14,6 +14,7 @@ import PaginaDerrota from './src/pages/paginaDerrota'
 import PaginaLogin from './src/pages/paginaLogin'
 import PaginaCadastro from './src/pages/paginaCadastro'
 import PaginaEsqueceuASenha from './src/pages/paginaEsqueceuASenha'
+import PaginaPerfil from './src/pages/paginaPerfil';
 
 const Stack = createStackNavigator()
 const store = createStore()
@@ -37,6 +38,7 @@ function App() {
     </Provider>
   )
 }
+
 const config = {
   animation: 'spring',
   config: {

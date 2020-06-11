@@ -4,7 +4,7 @@ import { Text, Alert, View, StyleSheet, Image, TextInput, TouchableOpacity, Stat
 import logo from '../images/logo.png'
 import cadastrar from '../components/cadastrar'
 
-const PaginaLogin = ({ navigation }) => {
+const PaginaCadastro = ({ navigation }) => {
     const [email, setEmail] = useState('')
     const [login, setLogin] = useState('')
     const [senha, setSenha] = useState('')
@@ -79,7 +79,7 @@ const PaginaLogin = ({ navigation }) => {
     )
 }
 
-export default PaginaLogin
+export default PaginaCadastro
 
 const styles = StyleSheet.create({
     container: {
