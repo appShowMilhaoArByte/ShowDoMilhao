@@ -20,7 +20,6 @@ import login from "./src/reducers/login"
 import score from "./src/reducers/score"
 import maxScore from "./src/reducers/maxScore"
 
-console.log(typeof login);
 const Stack = createStackNavigator()
 const store = createStore(combineReducers({login, score, maxScore}))
 
@@ -34,6 +33,7 @@ function App() {
           <Stack.Screen name="PaginaCadastro" component={PaginaCadastro} />
           <Stack.Screen name="PaginaEsqueceuASenha" component={PaginaEsqueceuASenha} />
           <Stack.Screen name="PaginaHome" component={PaginaHome} />
+          <Stack.Screen name="PaginaPerfil" component={PaginaPerfil} />
           <Stack.Screen name="PaginaJogo" component={PaginaJogo} />
           <Stack.Screen name="PaginaRanking" component={PaginaRanking} />
           <Stack.Screen name="Parou" component={PaginaFimDeJogo} />
