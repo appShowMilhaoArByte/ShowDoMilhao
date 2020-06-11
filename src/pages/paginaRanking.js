@@ -3,11 +3,9 @@ import React from 'react'
 import { View, Image, StatusBar } from 'react-native'
 import Botao from '../components/Botao'
 import CampoPosicao from '../components/CampoPosicao'
-import resultado from '../components/resultado'
 
-
-const PaginaRanking = ({ navigation, route }) => {
-    // const { resposta} = route.params.data
+const PaginaRanking = ({ navigation }) => {
+    
     return (
         <View style={styles.container} >
             <StatusBar backgroundColor={'#172178'} />
