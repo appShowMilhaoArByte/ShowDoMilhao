@@ -15,9 +15,11 @@ import PaginaLogin from './src/pages/paginaLogin'
 import PaginaCadastro from './src/pages/paginaCadastro'
 import PaginaEsqueceuASenha from './src/pages/paginaEsqueceuASenha'
 import PaginaPerfil from './src/pages/paginaPerfil';
+import login from "./src/reducers/login"
 
+console.log(typeof login);
 const Stack = createStackNavigator()
-const store = createStore()
+const store = createStore(login)
 
 function App() {
   return (

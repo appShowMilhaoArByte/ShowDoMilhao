@@ -2,9 +2,12 @@ import 'react-native-gesture-handler'
 import React, { useState } from 'react'
 import { Alert, Text, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar } from 'react-native'
 import logo from '../images/logo.png'
-import efetuarLogin from '../components/validaLogin'
+import buscaUsuario from '../components/buscaUsuario'
+import { connect } from 'react-redux'
+import action from '../actions/login'
+import logon from '../components/logon'
 
-const PaginaLogin = ({ navigation }) => {
+const PaginaLogin = ({ navigation, dispatch }) => {
     const [login, setLogin] = useState('')
     const [senha, setSenha] = useState('')
 
@@ -14,22 +17,14 @@ const PaginaLogin = ({ navigation }) => {
     const validacaologin = () => {
         if (!isLoginValid()) {
             return Alert.alert("Preencha os campos obrigatórios!")
-        }        
+        }
 
-        efetuarLogin()
-            .then(resposta => {
-                let loginApi = resposta.map(nickname => nickname.nickname);
-                let senhaApi = resposta.map(password => password.password);
-                
-                if( loginApi.indexOf(login) >= 0 && senha === senhaApi[loginApi.indexOf(login)] ){
-                        navigation.navigate('PaginaHome ')  
-                } else {
-                    return Alert.alert("Dados incorretos!")
-                }
-
+        logon(login, senha)
+            .then(usuario => {
+                dispatch(action(usuario))
+                navigation.navigate('PaginaHome')
             })
-            .catch(err => Alert.alert('Não respondendo. ', err.message))
-        
+            .catch(err => Alert.alert('Não está respondendo. ', err.message))
     }
     
     return (
@@ -75,8 +70,6 @@ const PaginaLogin = ({ navigation }) => {
         </View>
     )
 }
-
-export default PaginaLogin
 
 const styles = StyleSheet.create({
     container: {
@@ -154,3 +147,9 @@ const styles = StyleSheet.create({
         color: '#EBCD06',
     }
 })
+
+const mapStoreToProps = (store) => {
+    return {user: store.user}
+}
+
+export default connect(mapStoreToProps)(PaginaLogin)
