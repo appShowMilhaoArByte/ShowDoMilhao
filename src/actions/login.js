@@ -1,7 +1,7 @@
 
-export function action(){
+export default function action(user){
 	return ({
 		type: 'Login',
-		data: user
+		user: user
 	})
-}
+} 
