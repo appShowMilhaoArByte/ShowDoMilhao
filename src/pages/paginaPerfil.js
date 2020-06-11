@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, Image, StatusBar } from 'react-native'
+import { View, Image, StatusBar} from 'react-native'
 import CampoPosicao from '../components/CampoPosicao';
 import BotaoPararPular from '../components/botaoPularParar';
 
-const PaginaPerfil = ({ navigation }) => {
+const PaginaPerfil = ({ navigation,dispatch }) => {
     return (
         <View style={styles.container} >
             <StatusBar backgroundColor={'#172178'} />
@@ -17,6 +17,7 @@ const PaginaPerfil = ({ navigation }) => {
             />
             <CampoPosicao title={'Ninja'} />
             <View style={styles.containerButton}>
+            
                 <CampoPosicao title={'Maior Pontuação --- > '} />
                 <CampoPosicao title={'Pontuação Atual --- >'} />
                 <CampoPosicao title={'Quantidade De Partidas Jogadas --- >'} />
@@ -62,4 +63,13 @@ const styles = {
     },
 
 }
-export default PaginaPerfil;
+
+const mapProps = ({store}) => {
+    return {
+        nome: store.nome,
+        maiorPontuacao: store.maiorPontuacao,
+        pontuacaoAtual: store.pontuacaoAtual,
+        quantidadeDePartidas: store.quantidadeDePartidas
+    }
+};
+export default connect(mapProps)(PaginaPerfil);

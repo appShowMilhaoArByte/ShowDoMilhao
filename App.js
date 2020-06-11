@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import { store } from './src/store/store';
 
 import Inicio from './src/pages/Inicio'
 import PaginaHome from './src/pages/paginaHome'
@@ -16,6 +17,7 @@ import PaginaCadastro from './src/pages/paginaCadastro'
 import PaginaEsqueceuASenha from './src/pages/paginaEsqueceuASenha'
 import PaginaPerfil from './src/pages/paginaPerfil';
 import login from "./src/reducers/login"
+
 
 console.log(typeof login);
 const Stack = createStackNavigator()
@@ -31,6 +33,7 @@ function App() {
           <Stack.Screen name="PaginaCadastro" component={PaginaCadastro} />
           <Stack.Screen name="PaginaEsqueceuASenha" component={PaginaEsqueceuASenha} />
           <Stack.Screen name="PaginaHome" component={PaginaHome} />
+          <Stack.Screen name="PaginaPerfil" component={PaginaPerfil} />
           <Stack.Screen name="PaginaJogo" component={PaginaJogo} />
           <Stack.Screen name="PaginaRanking" component={PaginaRanking} />
           <Stack.Screen name="Parou" component={PaginaFimDeJogo} />
