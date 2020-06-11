@@ -6,10 +6,13 @@ import Posicao from '../components/posicao'
 import { geraDificiculdade } from '../components/geraIndicePerguntas'
 // import Botoes from '../components/botoesJogo'
 import Botoes from '../components/botoesJogo'
+import {connect} from "react-redux"
 
 
 const perguntas = require('../db/questions.json')
-const PaginaJogo = ({ navigation }) => {
+const PaginaJogo = ({ navigation, dispatch }) => {
+    const premio = [1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000, 400000, 500000, 1000000]
+    const errar = premio[indicePergunta] / 4
 
     const [perguntasRespondidas, setPerguntasRespondidas] = useState({})
     const [indicePergunta, geraNovaPergunta] = useState(0)
@@ -34,10 +37,12 @@ const PaginaJogo = ({ navigation }) => {
             setButtonPulo(true)
         }
         if (indicePergunta > 14) {
+            dispatch(action(premio[indicePergunta]))
             navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: acertou } })
         } else if (acertou) {
             geraNovaPergunta(indicePergunta + 1)
         } else {
+            dispatch(action(errar))
             navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: acertou } })
         }
     }
@@ -60,4 +65,11 @@ const styles = {
         padding: 10,
     }
 }
-export default PaginaJogo
+
+const mapStoreToProps = store => {
+    return {
+        score: store.user.score
+    }
+}
+
+export default connect(mapStoreToProps)(PaginaJogo)
