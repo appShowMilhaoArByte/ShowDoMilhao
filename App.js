@@ -6,7 +6,6 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { store } from './src/store/store';
 
-
 import Inicio from './src/pages/Inicio'
 import PaginaHome from './src/pages/paginaHome'
 import PaginaJogo from './src/pages/paginaJogo'
@@ -17,18 +16,19 @@ import PaginaLogin from './src/pages/paginaLogin'
 import PaginaCadastro from './src/pages/paginaCadastro'
 import PaginaEsqueceuASenha from './src/pages/paginaEsqueceuASenha'
 import PaginaPerfil from './src/pages/paginaPerfil';
-import { dadosTelaPerfil } from './src/reducers/dadosTelaPerfil';
+import login from "./src/reducers/login"
 
+
+console.log(typeof login);
 const Stack = createStackNavigator()
-const Store = createStore(dadosTelaPerfil)
+const store = createStore(login)
 
 function App() {
   return (
-    <Provider store = {Store}>
+    <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Inicio" screenOptions={{ headerShown: false, transitionSpec: { open: config, close: config } }} >
-
-          <Stack.Screen name="Inicio" component={Inicio} />
+        <Stack.Navigator initialRouteName="Inicio" screenOptions={{ headerShown: false, transitionSpec: { open: config, close: config  }}} >
+          <Stack.Screen name="Inicio" component={Inicio}  />
           <Stack.Screen name="PaginaLogin" component={PaginaLogin} />
           <Stack.Screen name="PaginaCadastro" component={PaginaCadastro} />
           <Stack.Screen name="PaginaEsqueceuASenha" component={PaginaEsqueceuASenha} />
@@ -43,6 +43,7 @@ function App() {
     </Provider>
   )
 }
+
 const config = {
   animation: 'spring',
   config: {
