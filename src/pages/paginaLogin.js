@@ -1,8 +1,7 @@
 import 'react-native-gesture-handler'
 import React, { useState } from 'react'
-import { Alert, Text, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar } from 'react-native'
+import { Alert, Text, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar, ScrollView } from 'react-native'
 import logo from '../images/logo.png'
-import buscaUsuario from '../components/buscaUsuario'
 import { connect } from 'react-redux'
 import action from '../actions/login'
 import logon from '../components/logon'
@@ -20,15 +19,15 @@ const PaginaLogin = ({ navigation, dispatch }) => {
         }
 
         logon(login, senha)
-            .then(usuario => {
-                dispatch(action(usuario))
-                navigation.navigate('PaginaHome')
+        .then(usuario => {
+            dispatch(action(usuario))
+            navigation.navigate('PaginaHome')
             })
             .catch(err => Alert.alert('Não está respondendo. ', err.message))
     }
     
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <StatusBar backgroundColor={'#172178'}/>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
                 <Image style={styles.logo} source={logo} />
@@ -67,7 +66,7 @@ const PaginaLogin = ({ navigation, dispatch }) => {
                 </TouchableOpacity>
             </View>
 
-        </View>
+        </ScrollView>
     )
 }
 
@@ -75,7 +74,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#172178',
         flex: 1,
-        alignItems: 'center'
     },
     logo: {
         width: 180,

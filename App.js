@@ -2,8 +2,9 @@ import 'react-native-gesture-handler'
 import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
+
 
 import Inicio from './src/pages/Inicio'
 import PaginaHome from './src/pages/paginaHome'
@@ -16,10 +17,12 @@ import PaginaCadastro from './src/pages/paginaCadastro'
 import PaginaEsqueceuASenha from './src/pages/paginaEsqueceuASenha'
 import PaginaPerfil from './src/pages/paginaPerfil';
 import login from "./src/reducers/login"
+import score from "./src/reducers/score"
+import maxScore from "./src/reducers/maxScore"
 
 console.log(typeof login);
 const Stack = createStackNavigator()
-const store = createStore(login)
+const store = createStore(combineReducers({login, score, maxScore}))
 
 function App() {
   return (

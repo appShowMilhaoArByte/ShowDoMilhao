@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import { Text, View, Modal, TouchableOpacity } from 'react-native'
 import { Button, Overlay } from 'react-native-elements'
 import BotaoPararPular from './botaoPularParar';
+import {connect} from "react-redux"
 
-const Botoes = ({ pulo, setPulo, navigation, indicePergunta, buttonPulo, setButtonPulo }) => {
+const Botoes = ({dispatch},{ pulo, setPulo, navigation, indicePergunta, buttonPulo, setButtonPulo }) => {
     const premio = [1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000, 400000, 500000, 1000000]
     const parar = premio[indicePergunta] / 2
     const [modalVisible, setModalVisible] = useState(false);
@@ -14,6 +15,7 @@ const Botoes = ({ pulo, setPulo, navigation, indicePergunta, buttonPulo, setButt
 
     const parou = () => {
         setButtonPulo(false)
+        dispatch(action(parar))
         navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: 'PAROU' } })
     }
 
@@ -108,4 +110,11 @@ const styles = {
         elevation: 5
     },
 }
-export default Botoes;
+
+const mapStoreToProps = store => {
+    return {
+        score: store.user.score
+    }
+}
+
+export default connect(mapStoreToProps)(Botoes)
