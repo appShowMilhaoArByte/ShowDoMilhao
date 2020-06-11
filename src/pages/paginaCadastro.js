@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
         width: '98%',
         height: 30,
         borderWidth: 2,
-        borderColor: 'black',
+        borderColor: '#172178',
         borderRadius: 5,
         marginVertical: 8,
         marginHorizontal: 2,
@@ -123,12 +123,12 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'space-evenly',
         alignSelf: 'center',
-        backgroundColor: '#b71b1b',
+        backgroundColor: '#9a031e',
         width: 150,
         height: 50,
         shadowColor: "#000",
-        borderColor: 'gold',
-        borderWidth: 1,
+        borderColor: '#ffdd55',
+        borderWidth: 2,
         marginVertical: 60,
         shadowOffset: {
             width: 0,
@@ -142,6 +142,6 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: "center",
         fontSize: 18,
-        color: '#EBCD06',
+        color: '#ffffff',
     }
 })

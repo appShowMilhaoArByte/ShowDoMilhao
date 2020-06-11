@@ -1,9 +1,27 @@
 import React from 'react'
-import { View, Image, StatusBar} from 'react-native'
+import { View, Image, StatusBar } from 'react-native'
 import CampoPosicao from '../components/CampoPosicao';
 import BotaoPararPular from '../components/botaoPularParar';
+import { connect } from 'react-redux'
 
-const PaginaPerfil = ({ navigation,dispatch }) => {
+const PaginaPerfil = ({ navigation, user}) => {
+
+    // const [maxScore] = useState('')
+    // const [score] = useState('')
+
+    // atualizaMaxScore(maxScore)
+    //     .then(usuario => {
+    //         dispatch(action(usuario))
+    //         navigation.navigate('PaginaHome')
+    //     })
+    //     .catch(err => Alert.alert('Não está respondendo. ', err.message))
+
+    // atualizaScore(score)
+    //     .then(usuario => {
+    //         dispatch(action(usuario))
+    //         navigation.navigate('PaginaHome')
+    //     })
+    //     .catch(err => Alert.alert('Não está respondendo. ', err.message))
     return (
         <View style={styles.container} >
             <StatusBar backgroundColor={'#172178'} />
@@ -15,12 +33,12 @@ const PaginaPerfil = ({ navigation,dispatch }) => {
                 source={require('../images/ninja.png')}
                 style={styles.iconInput}
             />
-            <CampoPosicao title={'Ninja'} />
+            <CampoPosicao title={user.nickname}/>
             <View style={styles.containerButton}>
-            
-                <CampoPosicao title={'Maior Pontuação --- > '} />
-                <CampoPosicao title={'Pontuação Atual --- >'} />
-                <CampoPosicao title={'Quantidade De Partidas Jogadas --- >'} />
+
+                <CampoPosicao title={`Maior Pontuação --- > ${user.maxScore}`}  />
+                <CampoPosicao title={`Pontuação Atual --- > ${user.score}`}  />
+                <CampoPosicao title={`Partidas Jogadas --- > ${user.nOfMatches}`} />
                 <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: 20 }}>
                     <BotaoPararPular title={'Jogar'} onPress={() => { navigation.navigate('PaginaJogo') }} />
                     <BotaoPararPular title={'Home'} onPress={() => { navigation.navigate('PaginaHome') }} />
@@ -38,10 +56,9 @@ const styles = {
         backgroundColor: '#172178',
     },
     logo: {
-        margin: 10,
-        flex: 1,
-        width: 350,
-        height: 180,
+        width: 280,
+        height: 100,
+        margin: 20,
     },
 
     textInput: {
@@ -64,12 +81,9 @@ const styles = {
 
 }
 
-const mapProps = ({store}) => {
+const mapProps = ( store ) => {
     return {
-        nome: store.nome,
-        maiorPontuacao: store.maiorPontuacao,
-        pontuacaoAtual: store.pontuacaoAtual,
-        quantidadeDePartidas: store.quantidadeDePartidas
+        user: store.user,
     }
 };
 export default connect(mapProps)(PaginaPerfil);

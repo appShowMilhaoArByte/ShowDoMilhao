@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { store } from './src/store/store';
 
 import Inicio from './src/pages/Inicio'
 import PaginaHome from './src/pages/paginaHome'
@@ -18,8 +17,6 @@ import PaginaEsqueceuASenha from './src/pages/paginaEsqueceuASenha'
 import PaginaPerfil from './src/pages/paginaPerfil';
 import login from "./src/reducers/login"
 
-
-console.log(typeof login);
 const Stack = createStackNavigator()
 const store = createStore(login)
 

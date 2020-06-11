@@ -11,7 +11,7 @@ const PaginaLogin = ({ navigation, dispatch }) => {
     const [login, setLogin] = useState('')
     const [senha, setSenha] = useState('')
 
-    
+
     const isLoginValid = () => login != '' && senha != '';
 
     const validacaologin = () => {
@@ -20,43 +20,46 @@ const PaginaLogin = ({ navigation, dispatch }) => {
         }
 
         logon(login, senha)
+
             .then(usuario => {
+                console.log('aqui' , usuario)
                 dispatch(action(usuario))
                 navigation.navigate('PaginaHome')
+
             })
             .catch(err => Alert.alert('Não está respondendo. ', err.message))
     }
-    
+
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor={'#172178'}/>
+            <StatusBar backgroundColor={'#172178'} />
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
                 <Image style={styles.logo} source={logo} />
             </View>
             <View style={styles.caixaDeLogin}>
                 <Text style={styles.textoLogin}>Login:</Text>
                 <TextInput style={styles.entradaDeTexto}
-                   placeholder='  Seu login'
-                   placeholderTextColor='gray'
-                   value={login}
-                   onChangeText={login => { setLogin(login) }}
+                    placeholder='  Seu login'
+                    placeholderTextColor='gray'
+                    value={login}
+                    onChangeText={login => { setLogin(login) }}
                 />
                 <Text style={styles.textoSenha}>Senha:</Text>
                 <TextInput style={styles.entradaDeTexto}
-                   placeholder='  Sua senha'
-                   placeholderTextColor='gray'
-                   secureTextEntry={true}
-                   value={senha}
-                   onChangeText={senha => { setSenha(senha) }}
+                    placeholder='  Sua senha'
+                    placeholderTextColor='gray'
+                    secureTextEntry={true}
+                    value={senha}
+                    onChangeText={senha => { setSenha(senha) }}
                 />
             </View>
             <View>
                 <TouchableOpacity
-                 onPress={() => { navigation.navigate('PaginaCadastro') }}>
+                    onPress={() => { navigation.navigate('PaginaCadastro') }}>
                     <Text style={styles.botaoCadastrar}>Cadastrar-se</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                 onPress={() => { navigation.navigate('PaginaEsqueceuASenha') }}>
+                    onPress={() => { navigation.navigate('PaginaEsqueceuASenha') }}>
                     <Text style={styles.botaoCadastrar}>Esqueceu a Senha?</Text>
                 </TouchableOpacity>
             </View>
@@ -88,7 +91,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'gold',
         alignSelf: 'center',
         borderRadius: 15,
-        borderColor: '#ffdd55',
+        borderColor: '#172178',
         borderWidth: 1,
         paddingHorizontal: 10,
     },
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
         width: '98%',
         height: 30,
         borderWidth: 2,
-        borderColor: 'black',
+        borderColor: '#172178',
         borderRadius: 5,
         marginVertical: 8,
         marginHorizontal: 2,
@@ -110,7 +113,7 @@ const styles = StyleSheet.create({
     },
     textoSenha: {
         paddingHorizontal: 6,
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold'
     },
     botaoCadastrar: {
@@ -125,12 +128,12 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: 'space-evenly',
         alignSelf: 'center',
-        backgroundColor: '#b71b1b',
+        backgroundColor: '#9a031e',
         width: 150,
         height: 50,
         shadowColor: "#000",
-        borderColor: 'gold',
-        borderWidth: 1,
+        borderColor: '#ffdd55',
+        borderWidth: 2,
         marginVertical: 60,
         shadowOffset: {
             width: 0,
@@ -144,12 +147,12 @@ const styles = StyleSheet.create({
     buttonText: {
         textAlign: "center",
         fontSize: 18,
-        color: '#EBCD06',
+        color: '#ffffff',
     }
 })
 
 const mapStoreToProps = (store) => {
-    return {user: store.user}
+    return { user: store.user }
 }
 
 export default connect(mapStoreToProps)(PaginaLogin)
