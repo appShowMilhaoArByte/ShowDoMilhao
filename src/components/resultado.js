@@ -7,8 +7,6 @@ function resultado(res, indice) {
     const premioQuandoParar = premio[indice] / 2
     const premioQuandoErrar = premioQuandoParar / 2
 
-    let pontuacao = 0;
-
     switch (res) {
         case true:
             return vitoria('1 Milhão')
