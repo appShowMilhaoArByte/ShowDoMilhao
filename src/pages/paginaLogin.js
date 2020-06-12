@@ -10,7 +10,6 @@ const PaginaLogin = ({ navigation, dispatch }) => {
     const [login, setLogin] = useState('')
     const [senha, setSenha] = useState('')
 
-
     const isLoginValid = () => login != '' && senha != '';
 
     const validacaologin = () => {
@@ -23,10 +22,10 @@ const PaginaLogin = ({ navigation, dispatch }) => {
         .then(usuario => {
             dispatch(action(usuario))
             navigation.navigate('PaginaHome')
-            })
-            .catch(err => Alert.alert('Não está respondendo. ', err.message))
+        })
+        .catch(err => Alert.alert('Não está respondendo. ', err.message))
     }
-
+  
     return (
         <ScrollView style={styles.container}>
             <StatusBar backgroundColor={'#172178'}/>

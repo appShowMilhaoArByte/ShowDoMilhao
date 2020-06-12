@@ -5,23 +5,7 @@ import BotaoPararPular from '../components/botaoPularParar';
 import { connect } from 'react-redux'
 
 const PaginaPerfil = ({ navigation, user}) => {
-
-    // const [maxScore] = useState('')
-    // const [score] = useState('')
-
-    // atualizaMaxScore(maxScore)
-    //     .then(usuario => {
-    //         dispatch(action(usuario))
-    //         navigation.navigate('PaginaHome')
-    //     })
-    //     .catch(err => Alert.alert('Não está respondendo. ', err.message))
-
-    // atualizaScore(score)
-    //     .then(usuario => {
-    //         dispatch(action(usuario))
-    //         navigation.navigate('PaginaHome')
-    //     })
-    //     .catch(err => Alert.alert('Não está respondendo. ', err.message))
+    console.log('user: ', user);
     return (
         <View style={styles.container} >
             <StatusBar backgroundColor={'#172178'} />
