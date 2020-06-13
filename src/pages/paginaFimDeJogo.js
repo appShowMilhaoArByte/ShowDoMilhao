@@ -8,8 +8,6 @@ import axios from 'axios'
 
 
 const PaginaFimDeJogo = ({ navigation, route, user }) => {
-    console.log('fim de jogo ', user)
-
     const { indicePremio, resposta } = route.params.data
 
     axios.put(`https://api-showdomilhao.herokuapp.com/players/${user.id}`, { score: user.score, maxScore: user.maxScore, nOfMatches: user.nOfMatches })

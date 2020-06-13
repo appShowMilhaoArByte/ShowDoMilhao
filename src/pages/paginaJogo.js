@@ -17,7 +17,6 @@ const PaginaJogo = ({ navigation, dispatch, user }) => {
     const [indicePergunta, geraNovaPergunta] = useState(0)
     const [pulo, setPulo] = useState(0)
     const [buttonPulo, setButtonPulo] = useState(false)
-    const [numeroPartidas, setNumeroPartidas] = useState(0)
     const parar = premio[indicePergunta] / 2
     const errar = premio[indicePergunta] / 4
     

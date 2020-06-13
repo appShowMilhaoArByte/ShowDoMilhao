@@ -1,12 +1,38 @@
-import 'react-native-gesture-handler'
-import React from 'react'
-import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar } from 'react-native'
+import React, { useState } from 'react'
+import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar, ScrollView, Alert } from 'react-native'
 import logo from '../images/logo.png'
-
+import axios from 'axios'
 const PaginaLogin = ({ navigation }) => {
+
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+    const [confirmaSenha, setConfirmaSenha] = useState('')
+    const isFormValid = () => email != '' && senha != '';
+    const recuperaSenha = () => {
+        if (!isFormValid()) {
+            return Alert.alert("Preencha os campos obrigatórios!")
+        }
+        if (senha !== confirmaSenha) {
+            return Alert.alert("As senhas digitadas não coincidem!")
+        }
+        axios.get('https://api-showdomilhao.herokuapp.com/players/')
+            .then(resultado => {
+                const usuarios = resultado.data
+                const usuarioLocalizado = usuarios.find(item => item.email === email)
+                if (usuarioLocalizado === undefined) {
+                    Alert.alert('Email não encontrado')
+                } else {
+                    axios.put('https://api-showdomilhao.herokuapp.com/updateSenha', { email: usuarioLocalizado.email, password: senha })
+                    Alert.alert('Senha Alterada')
+                    navigation.navigate('PaginaLogin')
+                }
+            })
+            .catch(e => console.log('error', e))
+    }
+
     return (
-        <View style={styles.container}>
-            <StatusBar backgroundColor={'#172178'}/>
+        <ScrollView style={styles.container}>
+            <StatusBar backgroundColor={'#172178'} />
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
                 <Image style={styles.logo} source={logo} />
             </View>
@@ -15,26 +41,33 @@ const PaginaLogin = ({ navigation }) => {
                 <TextInput style={styles.entradaDeTexto}
                     placeholder='  Seu e-mail'
                     placeholderTextColor='gray'
+                    value={email}
+                    onChangeText={text => setEmail(text)}
                 />
                 <Text style={styles.textoCaixaDeLogin}>Nova senha:</Text>
                 <TextInput style={styles.entradaDeTexto}
                     placeholder='  Nova senha'
                     placeholderTextColor='gray'
+                    secureTextEntry={true}
+                    value={senha}
+                    onChangeText={senha => { setSenha(senha) }}
                 />
                 <Text style={styles.textoCaixaDeLogin}>Confirmar senha:</Text>
                 <TextInput style={styles.entradaDeTexto}
                     placeholder='  Confirmar senha'
                     placeholderTextColor='gray'
+                    secureTextEntry={true}
+                    value={confirmaSenha}
+                    onChangeText={confirmaSenha => { setConfirmaSenha(confirmaSenha) }}
                 />
             </View>
             <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}
-                    onPress={() => { navigation.navigate('PaginaHome') }}>
+                    onPress={() => { recuperaSenha() }}>
                     <Text style={styles.buttonText}>Entrar</Text>
                 </TouchableOpacity>
             </View>
-
-        </View>
+        </ScrollView>
     )
 }
 
@@ -44,7 +77,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#172178',
         flex: 1,
-        alignItems: 'center'
     },
     logo: {
         width: 180,
