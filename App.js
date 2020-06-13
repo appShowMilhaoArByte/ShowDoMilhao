@@ -16,7 +16,8 @@ import PaginaLogin from './src/pages/paginaLogin'
 import PaginaCadastro from './src/pages/paginaCadastro'
 import PaginaEsqueceuASenha from './src/pages/paginaEsqueceuASenha'
 import PaginaPerfil from './src/pages/paginaPerfil';
-import reducer from './src/reducers/reducer'
+import reducer from './src/reducers/reducerIndex'
+
 
 const Stack = createStackNavigator()
 const store = createStore(reducer)

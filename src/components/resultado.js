@@ -1,6 +1,7 @@
 import vitoria from './vitoria'
 import derrota from './derrota'
 import parou from './parou'
+import tempo from './tempo'
 
 function resultado(res, indice) {
     const premio = [1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000, 400000, 500000, 1000000]
@@ -21,6 +22,12 @@ function resultado(res, indice) {
                 return parou(0)
             } else {
                 return parou(premioQuandoParar)
+            }
+        case 'TEMPO':
+            if (premio[indice] === 1000) {
+                return tempo(0)
+            } else {
+                return tempo(premioQuandoParar)
             }
         default:
             break;

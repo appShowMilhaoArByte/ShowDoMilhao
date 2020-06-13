@@ -3,7 +3,7 @@ import { Text, View, } from 'react-native'
 import Contador from './contador'
 
 
-const Perguntas = ({pergunta, indicePergunta, contadorZerou}) => {
+const Perguntas = ({pergunta, indicePergunta, contadorZerou, gambis}) => {
     const nomePergunta = pergunta.Name
     return (
         <View style={styles.pergunta}>
@@ -12,7 +12,7 @@ const Perguntas = ({pergunta, indicePergunta, contadorZerou}) => {
                     nomePergunta
                 }
             </Text>
-            <Contador indicePergunta={indicePergunta} contadorZerou={contadorZerou}/>
+            <Contador indicePergunta={indicePergunta} gambis={gambis} contadorZerou={contadorZerou}/>
         </View>
     )
 }

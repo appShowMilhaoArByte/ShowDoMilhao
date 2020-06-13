@@ -78,7 +78,7 @@ const PaginaCadastro = ({ navigation }) => {
             <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}
                     onPress={chamarCadastro}>
-                    <Text style={styles.buttonText}>Entrar</Text>
+                    <Text style={styles.buttonText}>Cadastrar</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>

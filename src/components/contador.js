@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { View, StatusBar, Alert, ToastAndroid, BackHandler, Text } from 'react-native'
+import React from 'react'
+import { View, Text } from 'react-native'
 
 class Contador extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            count: 15,
+            count: 5,
             indice: props.indicePergunta
         }
         this.start = this.start.bind(this)
@@ -14,25 +14,25 @@ class Contador extends React.Component {
         this.start()
     }
     start() {
-        clearInterval(this.count);
-        this.count = setInterval(() => {
-            this.setState({ count: this.state.count - 1 })
+        clearInterval(this.contador);
+        this.contador = setInterval(() => {
+            this.setState(state => ({ count: state.count - 1 }))
         }, 1000);
     }
 
     componentDidUpdate() {
         if(this.props.indicePergunta > this.state.indice){
-            this.setState({count: 15, indice:this.props.indicePergunta })
+            this.setState({count: 5, indice:this.props.indicePergunta })
         }
-        if (this.state.count === 0) {
-            clearInterval(this.count);
-            this.setState({ count: 15 })
+        if (this.state.count === 0 && this.props.gambis === 0) {
+            clearInterval(this.contador);
+            this.setState({ count: 5 })
             this.props.contadorZerou()
         }
     }
 
     componentWillUnmount(){
-        clearInterval(this.count)
+        clearInterval(this.contador)
     }
 
     render() {

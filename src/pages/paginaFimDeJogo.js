@@ -4,11 +4,13 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'reac
 import { connect } from 'react-redux'
 import logo from '../images/logo.png'
 import resultado from '../components/resultado'
+import incrementa from '../actions/incrementa'
 import axios from 'axios'
 
 
-const PaginaFimDeJogo = ({ navigation, route, user }) => {
-    const { indicePremio, resposta } = route.params.data
+const PaginaFimDeJogo = ({ navigation, route, user, question, dispatch }) => {
+    console.log('question: ', question);
+    const { resposta } = route.params.data
 
     axios.put(`https://api-showdomilhao.herokuapp.com/players/${user.id}`, { score: user.score, maxScore: user.maxScore, nOfMatches: user.nOfMatches })
         // .then(usuarioAtualizado => console.log(usuarioAtualizado.data))
@@ -22,15 +24,21 @@ const PaginaFimDeJogo = ({ navigation, route, user }) => {
                     style={styles.logo} />
             </View>
             <View style={styles.caixaDeTexto}>
-                {resultado(resposta, indicePremio)}
+                {resultado(resposta, question)}
             </View>
             <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}
-                    onPress={() => { navigation.push('PaginaJogo') }}>
+                    onPress={() => { 
+                        dispatch(incrementa(0))
+                        navigation.push('PaginaJogo') 
+                    }}>
                     <Text style={styles.buttonText}>Jogar Novamente</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button}
-                    onPress={() => { navigation.navigate('PaginaHome') }}>
+                    onPress={() => { 
+                        dispatch(incrementa(0))
+                        navigation.navigate('PaginaHome') 
+                        }}>
                     <Text style={styles.buttonText}>Menu</Text>
                 </TouchableOpacity>
             </View>
@@ -40,7 +48,8 @@ const PaginaFimDeJogo = ({ navigation, route, user }) => {
 
 const mapStoreToProps = store => {
     return {
-        user: store.user
+        user: store.reducer.user,
+        question: store.reducerPergunta.question
     }
 }
 

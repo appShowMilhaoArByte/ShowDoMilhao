@@ -67,7 +67,7 @@ const styles = {
 
 const mapProps = ( store ) => {
     return {
-        user: store.user,
+        user: store.reducer.user,
     }
 };
 export default connect(mapProps)(PaginaPerfil);

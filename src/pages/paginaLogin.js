@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStoreToProps = (store) => {
-    return { user: store.user }
+    return { user: store.reducer.user }
 }
 
 export default connect(mapStoreToProps)(PaginaLogin)

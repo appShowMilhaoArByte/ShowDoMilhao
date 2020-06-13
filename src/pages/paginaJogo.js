@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StatusBar, Alert, ToastAndroid, BackHandler, Text} from 'react-native'
+import { View, StatusBar, Alert, ToastAndroid, BackHandler, Text } from 'react-native'
 import Perguntas from '../components/monstraPerguntas'
 import Alternativas from '../components/alternativas'
 import Posicao from '../components/posicao'
@@ -9,11 +9,11 @@ import { connect } from "react-redux"
 import action from "../actions/score"
 import maxAction from "../actions/maxScore"
 import nOfMatches from '../actions/nOfMatches'
-import Contador from '../components/contador'
+import incrementa from '../actions/incrementa'
 
 const perguntas = require('../db/questions.json')
-const PaginaJogo = ({ navigation, dispatch, user }) => {
-
+const PaginaJogo = ({ navigation, dispatch, user, question }) => {
+   
     // useEffect(() => {
     //     function botao() {
     //         BackHandler.addEventListener('hardwareBackPress', () => {
@@ -24,17 +24,26 @@ const PaginaJogo = ({ navigation, dispatch, user }) => {
     //     return () => BackHandler.addEventListener('hardwareBackPress', () => { return false })
     // })
 
+    // useEffect(() => {
+    //     reiniciaJogo()
+    //     return () => geraNovaPergunta(0)
+    // }, [indicePergunta])
+
+    // const reiniciaJogo = () => {
+    //     geraNovaPergunta(0)
+    // }
     const premio = [1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000, 400000, 500000, 1000000]
     const [indicePergunta, geraNovaPergunta] = useState(0)
     const [perguntasRespondidas, setPerguntasRespondidas] = useState({})
     const [pulo, setPulo] = useState(0)
     const [buttonPulo, setButtonPulo] = useState(false)
-    const parar = premio[indicePergunta] / 2
-    const errar = premio[indicePergunta] / 4
-    const numero = geraDificiculdade(perguntasRespondidas, indicePergunta)
+    const parar = premio[question] / 2
+    const errar = premio[question] / 4
+    const numero = geraDificiculdade(perguntasRespondidas, question)
     const pergunta = perguntas[numero]
     const alternativa = pergunta.Answers
     const correta = pergunta.CorrectAnswer
+    const [gambis, setGambis] = useState(0)
 
     function testaMaxScore(score, maxScore) {
         if (score >= maxScore) {
@@ -42,30 +51,32 @@ const PaginaJogo = ({ navigation, dispatch, user }) => {
         }
     }
 
-
     const respostaDaPergunta = (acertou) => {
-        if (indicePergunta === 14) {
+        if (question === 14) {
             setButtonPulo(true)
         }
-        if (indicePergunta > 14) {
-            dispatch(action(premio[indicePergunta]))
-            dispatch(maxAction(premio[indicePergunta]))
+        if (question > 14) {
+            setGambis(1)
+            dispatch(action(premio[question]))
+            dispatch(maxAction(premio[question]))
             dispatch(nOfMatches(user.nOfMatches + 1))
-            navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: acertou } })
+            navigation.navigate('Parou', { data: { indicePremio: question, resposta: acertou } })
         } else if (acertou) {
-            geraNovaPergunta(indicePergunta + 1)
-        } else if (!false && indicePergunta === 0) {
+            dispatch(incrementa(question + 1))
+        } else if (!false && question === 0) {
+            setGambis(1)
             dispatch(nOfMatches(user.nOfMatches + 1))
             dispatch(action(0))
-            navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: acertou } })
+            navigation.navigate('Parou', { data: { indicePremio: question, resposta: acertou } })
         } else {
+            setGambis(1)
             dispatch(nOfMatches(user.nOfMatches + 1))
             dispatch(action(errar))
             testaMaxScore(errar, user.maxScore)
-            navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: acertou } })
+            navigation.navigate('Parou', { data: { indicePremio: question, resposta: acertou } })
         }
     }
-
+    
     const pular = () => {
         if (pulo < 3) {
             setPulo(pulo + 1)
@@ -74,28 +85,28 @@ const PaginaJogo = ({ navigation, dispatch, user }) => {
             }
         }
     }
+    
     const parou = () => {
+        setGambis(1)
         dispatch(action(parar))
         dispatch(nOfMatches(user.nOfMatches + 1))
         testaMaxScore(parar, user.maxScore)
-        navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: 'PAROU' } })
+        navigation.navigate('Parou', { data: { indicePremio: question, resposta: 'PAROU' } })
     }
 
-    const contadorZerou = () =>{
-        Alert.alert('Tempo esgotado, voce perdeu tudo')
+    const contadorZerou = () => {
         dispatch(nOfMatches(user.nOfMatches + 1))
         dispatch(action(0))
-        navigation.navigate('Parou', { data: { indicePremio: 0, resposta: 'PAROU' } })
+        navigation.navigate('Parou', { data: { indicePremio: 0, resposta: 'TEMPO' } })
     }
 
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={'#172178'} />
-            <Perguntas pergunta={pergunta} indicePergunta={indicePergunta} contadorZerou={contadorZerou}/>
-            {/* <Contador indicePergunta={indicePergunta} contadorZerou={contadorZerou}/> */}
+            <Perguntas pergunta={pergunta} indicePergunta={question} contadorZerou={contadorZerou} gambis={gambis} />
             <Alternativas alternativas={alternativa} correta={correta} respostaDaPergunta={respostaDaPergunta} />
-            <Posicao indice={indicePergunta} />
-            <Botoes pular={pular} pulo={pulo} parou={parou} indicePergunta={indicePergunta} buttonPulo={buttonPulo} />
+            <Posicao indice={question} />
+            <Botoes pular={pular} pulo={pulo} parou={parou} indicePergunta={question} buttonPulo={buttonPulo} />
         </View>
     )
 }
@@ -107,10 +118,10 @@ const styles = {
         padding: 10,
     }
 }
-
 const mapStoreToProps = store => {
     return {
-        user: store.user
+        user: store.reducer.user,
+        question: store.reducerPergunta.question
     }
 }
 
