@@ -10,7 +10,7 @@ import axios from 'axios'
 
 const PaginaFimDeJogo = ({ navigation, route, user, question, dispatch }) => {
     console.log('question: ', question);
-    const { resposta } = route.params.data
+    const { indicePremio, resposta } = route.params.data
 
     axios.put(`https://api-showdomilhao.herokuapp.com/players/${user.id}`, { score: user.score, maxScore: user.maxScore, nOfMatches: user.nOfMatches })
         // .then(usuarioAtualizado => console.log(usuarioAtualizado.data))
@@ -24,7 +24,7 @@ const PaginaFimDeJogo = ({ navigation, route, user, question, dispatch }) => {
                     style={styles.logo} />
             </View>
             <View style={styles.caixaDeTexto}>
-                {resultado(resposta, question)}
+                {resultado(resposta, indicePremio)}
             </View>
             <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}
