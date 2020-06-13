@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler'
 import React, { useState } from 'react'
-import { Alert, Text, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar, ScrollView } from 'react-native'
+import { Alert, Text, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar, ScrollView, ToastAndroid } from 'react-native'
 import logo from '../images/logo.png'
 import { connect } from 'react-redux'
 import action from '../actions/login'
@@ -12,23 +12,33 @@ const PaginaLogin = ({ navigation, dispatch }) => {
 
     const isLoginValid = () => login != '' && senha != '';
 
+    const Toast = () => {
+        ToastAndroid.showWithGravity('Dados incorretos',
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+            )
+    }
     const validacaologin = () => {
         if (!isLoginValid()) {
             return Alert.alert("Preencha os campos obrigatórios!")
         }
 
         logon(login, senha)
-
-        .then(usuario => {
-            dispatch(action(usuario))
-            navigation.navigate('PaginaHome')
-        })
-        .catch(err => Alert.alert('Não está respondendo. ', err.message))
+            .then(usuario => {
+                if (usuario === undefined) {
+                    Toast()
+                    // Alert.alert('Dados incorretos')
+                } else {
+                    dispatch(action(usuario))
+                    navigation.navigate('PaginaHome')
+                }
+            })
+            .catch(err => Alert.alert('Não está respondendo. ', err.message))
     }
-  
+
     return (
         <ScrollView style={styles.container}>
-            <StatusBar backgroundColor={'#172178'}/>
+            <StatusBar backgroundColor={'#172178'} />
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
                 <Image style={styles.logo} source={logo} />
             </View>
