@@ -5,7 +5,7 @@ class Contador extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            count: 5,
+            count: 20,
             indice: props.indicePergunta
         }
         this.start = this.start.bind(this)
@@ -22,11 +22,11 @@ class Contador extends React.Component {
 
     componentDidUpdate() {
         if(this.props.indicePergunta > this.state.indice){
-            this.setState({count: 5, indice:this.props.indicePergunta })
+            this.setState({count: 20, indice:this.props.indicePergunta })
         }
         if (this.state.count === 0 && this.props.gambis === 0) {
             clearInterval(this.contador);
-            this.setState({ count: 5 })
+            this.setState({ count: 20 })
             this.props.contadorZerou()
         }
     }
