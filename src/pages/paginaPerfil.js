@@ -17,7 +17,7 @@ const PaginaPerfil = ({ navigation, user}) => {
                 source={require('../images/ninja.png')}
                 style={styles.iconInput}
             />
-            <CampoPosicao title={user.nickname}/>
+            <CampoPosicao title={user.nickname[0].toUpperCase() + user.nickname.slice(1) }/>
             <View style={styles.containerButton}>
 
                 <CampoPosicao title={`Maior Pontuação --- > ${user.maxScore}`}  />

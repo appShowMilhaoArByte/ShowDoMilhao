@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Text, Alert, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar, ScrollView } from 'react-native'
 import logo from '../images/logo.png'
 import cadastrar from '../components/cadastrar'
+import validacaoEmail from '../components/validacaoEmail'
 
 const PaginaCadastro = ({ navigation }) => {
     const [email, setEmail] = useState('')
@@ -13,18 +14,19 @@ const PaginaCadastro = ({ navigation }) => {
     const isFormValid = () => login != '' && email != '' && senha != '';
 
     const chamarCadastro = () => {
-        if (!isFormValid()) {
-            return Alert.alert("Preencha os campos obrigatórios!")
-        }
         if (senha !== confirmaSenha) {
             return Alert.alert("As senhas digitadas não coincidem!")
         }
-        cadastrar(email, login, senha, confirmaSenha)
-            .then(resposta => {
-                console.log(resposta)
-                navigation.navigate('PaginaLogin')
-            })
-            .catch(err => Alert.alert('Não foi possível cadastrar. ', err.message))
+        if (!isFormValid()) {
+            return Alert.alert("Preencha os campos obrigatórios!")
+        }else if(validacaoEmail(email)){
+            cadastrar(email, login, senha, confirmaSenha)
+                .then(resposta => {
+                    console.log(resposta)
+                    navigation.navigate('PaginaLogin')
+                })
+                .catch(err => Alert.alert('Não foi possível cadastrar. ', err.message))
+        }
     }
 
 
@@ -41,7 +43,8 @@ const PaginaCadastro = ({ navigation }) => {
                     <TextInput style={styles.entradaDeTexto}
                         placeholder='  Seu e-mail'
                         placeholderTextColor='gray'
-                        value={email}
+                        value={email.toLowerCase()}
+                        keyboardType={'email-address'}
                         onChangeText={email => { setEmail(email) }}
                     />
                     <Text style={styles.textoCaixaDeLogin}>Login:</Text>
@@ -50,20 +53,23 @@ const PaginaCadastro = ({ navigation }) => {
                         placeholderTextColor='gray'
                         value={login}
                         onChangeText={login => { setLogin(login) }}
-                    />
+                        keyboardType={'default'}
+                        />
                     <Text style={styles.textoCaixaDeLogin}>Senha:</Text>
                     <TextInput style={styles.entradaDeTexto}
                         placeholder='  Sua senha'
                         placeholderTextColor='gray'
                         secureTextEntry={true}
+                        keyboardType={'default'}
                         value={senha}
                         onChangeText={senha => { setSenha(senha) }}
-                    />
+                        />
                     <Text style={styles.textoCaixaDeLogin}>Confirmar Senha:</Text>
                     <TextInput style={styles.entradaDeTexto}
                         placeholder='  Confirme sua senha'
                         placeholderTextColor='gray'
                         secureTextEntry={true}
+                        keyboardType={'default'}
                         value={confirmaSenha}
                         onChangeText={confirmaSenha => { setConfirmaSenha(confirmaSenha) }}
                     />
@@ -109,7 +115,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 8,
         marginHorizontal: 2,
-        backgroundColor: '#c4c4c4'
+        backgroundColor: '#c4c4c4',
+        paddingLeft: 7
     },
     textoCaixaDeLogin: {
         paddingHorizontal: 6,

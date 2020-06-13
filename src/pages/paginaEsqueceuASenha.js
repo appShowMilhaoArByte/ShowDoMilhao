@@ -41,7 +41,8 @@ const PaginaLogin = ({ navigation }) => {
                 <TextInput style={styles.entradaDeTexto}
                     placeholder='  Seu e-mail'
                     placeholderTextColor='gray'
-                    value={email}
+                    value={email.toLowerCase()}
+                    keyboardType={'email-address'}
                     onChangeText={text => setEmail(text)}
                 />
                 <Text style={styles.textoCaixaDeLogin}>Nova senha:</Text>
@@ -50,6 +51,7 @@ const PaginaLogin = ({ navigation }) => {
                     placeholderTextColor='gray'
                     secureTextEntry={true}
                     value={senha}
+                    keyboardType={'default'}
                     onChangeText={senha => { setSenha(senha) }}
                 />
                 <Text style={styles.textoCaixaDeLogin}>Confirmar senha:</Text>
@@ -57,6 +59,7 @@ const PaginaLogin = ({ navigation }) => {
                     placeholder='  Confirmar senha'
                     placeholderTextColor='gray'
                     secureTextEntry={true}
+                    keyboardType={'default'}
                     value={confirmaSenha}
                     onChangeText={confirmaSenha => { setConfirmaSenha(confirmaSenha) }}
                 />
@@ -101,7 +104,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 8,
         marginHorizontal: 2,
-        backgroundColor: '#c4c4c4'
+        backgroundColor: '#c4c4c4',
+        paddingLeft: 7
     },
     textoCaixaDeLogin: {
         paddingHorizontal: 6,
