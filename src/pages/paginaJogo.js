@@ -60,20 +60,20 @@ const PaginaJogo = ({ navigation, dispatch, user, question }) => {
             dispatch(action(premio[question]))
             dispatch(maxAction(premio[question]))
             dispatch(nOfMatches(user.nOfMatches + 1))
-            navigation.navigate('Parou', { data: { indicePremio: question, resposta: acertou } })
+            navigation.navigate('PaginaFimdeDeJogo', { data: { indicePremio: question, resposta: acertou } })
         } else if (acertou) {
             dispatch(incrementa(question + 1))
         } else if (!false && question === 0) {
             setGambis(1)
             dispatch(nOfMatches(user.nOfMatches + 1))
             dispatch(action(0))
-            navigation.navigate('Parou', { data: { indicePremio: question, resposta: acertou } })
+            navigation.navigate('PaginaFimdeDeJogo', { data: { indicePremio: question, resposta: acertou } })
         } else {
             setGambis(1)
             dispatch(nOfMatches(user.nOfMatches + 1))
             dispatch(action(errar))
             testaMaxScore(errar, user.maxScore)
-            navigation.navigate('Parou', { data: { indicePremio: question, resposta: acertou } })
+            navigation.navigate('PaginaFimdeDeJogo', { data: { indicePremio: question, resposta: acertou } })
         }
     }
     
@@ -91,13 +91,13 @@ const PaginaJogo = ({ navigation, dispatch, user, question }) => {
         dispatch(action(parar))
         dispatch(nOfMatches(user.nOfMatches + 1))
         testaMaxScore(parar, user.maxScore)
-        navigation.navigate('Parou', { data: { indicePremio: question, resposta: 'PAROU' } })
+        navigation.navigate('PaginaFimdeDeJogo', { data: { indicePremio: question, resposta: 'PAROU' } })
     }
 
     const contadorZerou = () => {
         dispatch(nOfMatches(user.nOfMatches + 1))
         dispatch(action(0))
-        navigation.navigate('Parou', { data: { indicePremio: 0, resposta: 'TEMPO' } })
+        navigation.navigate('PaginaFimdeDeJogo', { data: { indicePremio: 0, resposta: 'TEMPO' } })
     }
 
     return (

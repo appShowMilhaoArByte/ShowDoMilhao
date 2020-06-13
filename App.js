@@ -35,7 +35,7 @@ function App() {
           <Stack.Screen name="PaginaPerfil" component={PaginaPerfil} />
           <Stack.Screen name="PaginaJogo" component={PaginaJogo} />
           <Stack.Screen name="PaginaRanking" component={PaginaRanking} />
-          <Stack.Screen name="Parou" component={PaginaFimDeJogo} />
+          <Stack.Screen name="PaginaFimdeDeJogo" component={PaginaFimDeJogo} />
           <Stack.Screen name="Derrota" component={PaginaDerrota} />
         </Stack.Navigator>
       </NavigationContainer>
