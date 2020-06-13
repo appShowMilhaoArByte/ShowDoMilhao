@@ -1,14 +1,18 @@
 import 'react-native-gesture-handler'
 import React from 'react'
-import { Text, View, StyleSheet, Image,  TouchableOpacity, StatusBar } from 'react-native'
+import { Text, View, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
+import { connect } from 'react-redux'
 import logo from '../images/logo.png'
 import resultado from '../components/resultado'
+import axios from 'axios'
 
 
-const PaginaFimDeJogo = ({ navigation, route }) => {
-
+const PaginaFimDeJogo = ({ navigation, route, user }) => {
     const { indicePremio, resposta } = route.params.data
 
+    axios.put(`https://api-showdomilhao.herokuapp.com/players/${user.id}`, { score: user.score, maxScore: user.maxScore, nOfMatches: user.nOfMatches })
+        // .then(usuarioAtualizado => console.log(usuarioAtualizado.data))
+        .catch(e => console.log('error: ', e))
 
     return (
         <View style={styles.container}>
@@ -33,6 +37,14 @@ const PaginaFimDeJogo = ({ navigation, route }) => {
         </View>
     )
 }
+
+const mapStoreToProps = store => {
+    return {
+        user: store.user
+    }
+}
+
+export default connect(mapStoreToProps)(PaginaFimDeJogo)
 
 
 const styles = StyleSheet.create({
@@ -88,4 +100,3 @@ const styles = StyleSheet.create({
         color: '#ffffff',
     }
 })
-export default PaginaFimDeJogo;

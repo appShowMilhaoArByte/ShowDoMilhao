@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, View, TouchableOpacity, Alert, Modal } from 'react-native'
 import ModalAlternativas from './modalAlternativas'
-const Alternativas = ({ alternativas, correta, notificaResposta }) => {
+const Alternativas = ({ alternativas, correta, respostaDaPergunta }) => {
 
     const respostaCerta = alternativas[correta]
     const [modalVisible, setModalVisible] = useState(false);
@@ -32,7 +32,7 @@ const Alternativas = ({ alternativas, correta, notificaResposta }) => {
                 alternativa
             }
             <ModalAlternativas
-                notificaResposta={notificaResposta}
+                notificaResposta={respostaDaPergunta}
                 visible={modalVisible}
                 respostaEscolhida={respostaEscolhida}
                 respostaCerta={respostaCerta}

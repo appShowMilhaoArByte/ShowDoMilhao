@@ -1,12 +1,40 @@
-import 'react-native-gesture-handler'
-import React from 'react'
-import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar } from 'react-native'
+import React, { useState } from 'react'
+import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar, ScrollView, Alert } from 'react-native'
 import logo from '../images/logo.png'
-
+import axios from 'axios'
+import validacaoEmail from '../components/validacaoEmail'
 const PaginaLogin = ({ navigation }) => {
+
+    const [email, setEmail] = useState('')
+    const [senha, setSenha] = useState('')
+    const [confirmaSenha, setConfirmaSenha] = useState('')
+    const isFormValid = () => email != '' && senha != '';
+    const recuperaSenha = () => {
+        if (senha !== confirmaSenha) {
+            return Alert.alert("As senhas digitadas não coincidem!")
+        }
+        if (!isFormValid()) {
+            return Alert.alert("Preencha os campos obrigatórios!")
+        }else if(validacaoEmail(email.toLowerCase())){
+            axios.get('https://api-showdomilhao.herokuapp.com/players/')
+                .then(resultado => {
+                    const usuarios = resultado.data
+                    const usuarioLocalizado = usuarios.find(item => item.email === email.toLowerCase())
+                    if (usuarioLocalizado === undefined) {
+                        Alert.alert('Email não encontrado')
+                    } else {
+                        axios.put('https://api-showdomilhao.herokuapp.com/updateSenha', { email: usuarioLocalizado.email, password: senha })
+                        Alert.alert('Senha Alterada')
+                        navigation.navigate('PaginaLogin')
+                    }
+                })
+                .catch(e => console.log('error', e))
+        }
+    }
+
     return (
-        <View style={styles.container}>
-            <StatusBar backgroundColor={'#172178'}/>
+        <ScrollView style={styles.container}>
+            <StatusBar backgroundColor={'#172178'} />
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
                 <Image style={styles.logo} source={logo} />
             </View>
@@ -15,26 +43,36 @@ const PaginaLogin = ({ navigation }) => {
                 <TextInput style={styles.entradaDeTexto}
                     placeholder='  Seu e-mail'
                     placeholderTextColor='gray'
+                    value={email}
+                    keyboardType={'email-address'}
+                    onChangeText={text => setEmail(text)}
                 />
                 <Text style={styles.textoCaixaDeLogin}>Nova senha:</Text>
                 <TextInput style={styles.entradaDeTexto}
                     placeholder='  Nova senha'
                     placeholderTextColor='gray'
+                    secureTextEntry={true}
+                    value={senha}
+                    keyboardType={'default'}
+                    onChangeText={senha => { setSenha(senha) }}
                 />
                 <Text style={styles.textoCaixaDeLogin}>Confirmar senha:</Text>
                 <TextInput style={styles.entradaDeTexto}
                     placeholder='  Confirmar senha'
                     placeholderTextColor='gray'
+                    secureTextEntry={true}
+                    keyboardType={'default'}
+                    value={confirmaSenha}
+                    onChangeText={confirmaSenha => { setConfirmaSenha(confirmaSenha) }}
                 />
             </View>
             <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}
-                    onPress={() => { navigation.navigate('PaginaHome') }}>
+                    onPress={() => { recuperaSenha() }}>
                     <Text style={styles.buttonText}>Entrar</Text>
                 </TouchableOpacity>
             </View>
-
-        </View>
+        </ScrollView>
     )
 }
 
@@ -44,7 +82,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#172178',
         flex: 1,
-        alignItems: 'center'
     },
     logo: {
         width: 180,
@@ -69,7 +106,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 8,
         marginHorizontal: 2,
-        backgroundColor: '#c4c4c4'
+        backgroundColor: '#c4c4c4',
+        paddingLeft: 7
     },
     textoCaixaDeLogin: {
         paddingHorizontal: 6,

@@ -26,7 +26,7 @@ export const geraIndicesDificil = (perguntasRespondidas) => {
     }
 }
 
-export const geraDificiculdade = (perguntasRespondidas, indicePergunta) => {
+export const geraDificiculdade = (perguntasRespondidas,indicePergunta) => {
     if (indicePergunta < 6) {
         return geraIndicesFacil(perguntasRespondidas)
     } else if (indicePergunta >= 6 && indicePergunta <= 11) {

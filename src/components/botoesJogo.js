@@ -1,46 +1,28 @@
 import React, { useState } from 'react'
-import { Text, View, Modal, TouchableOpacity } from 'react-native'
+import { Text, View, Modal, TouchableOpacity, ToastAndroid } from 'react-native'
 import { Button } from 'react-native-elements'
 import BotaoPararPular from './botaoPularParar';
-import {connect} from "react-redux"
+import { connect } from "react-redux"
 import action from "../actions/score"
 import maxAction from "../actions/maxScore"
 
-const Botoes = ({dispatch, pulo, setPulo, navigation, indicePergunta, buttonPulo, setButtonPulo, user }) => {
+const Botoes = ({ parou, pular, pulo, indicePergunta, buttonPulo }) => {
     const premio = [1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000, 400000, 500000, 1000000]
     const parar = premio[indicePergunta] / 2
     const [modalVisible, setModalVisible] = useState(false);
 
     const onPressParar = () => {
-        setModalVisible(true)
-    }
-    
-    function testaMaxScore (score, maxScore) {
-        if(score  > maxScore){
-            dispatch(maxAction(score))
+        if (indicePergunta === 0) {
+            //  Alert.alert('Voce não pode para na primeira pergunta')
+            ToastAndroid.show('Você não pode para na primeira pergunta', ToastAndroid.SHORT)
+        } else {
+            setModalVisible(true)
         }
     }
-
-    const parou = () => {
-        setButtonPulo(false)
-        dispatch(action(parar))
-        testaMaxScore(parar, user.maxScore)
-        navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: 'PAROU' } })
-    }
-
-    const pular = () => {
-        if (pulo < 3) {
-            setPulo(pulo + 1)
-            if (pulo == 2) {
-                setButtonPulo(true)
-            }
-        }
-    }
-
 
     return (
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: 20 }}>
-            <Button title={`PULAR ${pulo}/3`} onPress={pular} disabled={buttonPulo}  type='outline' buttonStyle={styles.styleButton} titleStyle={styles.buttonText}/>
+            <Button title={`PULAR ${pulo}/3`} onPress={pular} disabled={buttonPulo} type='outline' buttonStyle={styles.styleButton} titleStyle={styles.buttonText} />
             <Button title='PARAR' onPress={onPressParar} type='outline' buttonStyle={styles.styleButton} titleStyle={styles.buttonText} />
             <Modal
                 animationType="fade"
@@ -49,14 +31,15 @@ const Botoes = ({dispatch, pulo, setPulo, navigation, indicePergunta, buttonPulo
             >
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={{fontSize: 22, color:'#9a031e'}}>Quer mesmo parar o jogo ?</Text>
-                        <Text style={{fontSize: 22, color:'#9a031e'}}>Voce vai ficar com: R${premio[indicePergunta] == 1000 ? 0 : parar} </Text>
+                        <Text style={{ fontSize: 22, color: '#9a031e' }}>Quer mesmo parar o jogo ?</Text>
+                        <Text style={{ fontSize: 22, color: '#9a031e' }}>Voce vai ficar com: R${premio[indicePergunta] == 1000 ? 0 : parar} </Text>
                         <View style={{ flexDirection: "row" }}>
                             <TouchableOpacity style={styles.openButton} onPress={() => setModalVisible(!modalVisible)}>
                                 <Text style={{ fontSize: 15, color: '#ffdd55', fontWeight: "bold" }}>Cancelar</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[styles.openButton, { ...styles, marginLeft: 10 }]}
-                                onPress={() => { setModalVisible(!modalVisible), parou()
+                                onPress={() => {
+                                    setModalVisible(!modalVisible), parou()
                                 }} >
                                 <Text style={{ fontSize: 15, color: '#ffdd55', fontWeight: "bold" }}>Confirmar</Text>
                             </TouchableOpacity>
@@ -121,10 +104,5 @@ const styles = {
     },
 }
 
-const mapStoreToProps = store => {
-    return {
-        user: store.user
-    }
-}
 
-export default connect(mapStoreToProps)(Botoes)
+export default Botoes
