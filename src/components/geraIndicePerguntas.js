@@ -26,12 +26,12 @@ export const geraIndicesDificil = (perguntasRespondidas) => {
     }
 }
 
-export const geraDificiculdade = (perguntasRespondidas, indicePergunta) => {
+export const geraDificiculdade = (indicePergunta) => {
     if (indicePergunta < 6) {
-        return geraIndicesFacil(perguntasRespondidas)
+        return geraIndicesFacil(indicePergunta)
     } else if (indicePergunta >= 6 && indicePergunta <= 11) {
-        return geraIndicesIntermediario(perguntasRespondidas)
+        return geraIndicesIntermediario(indicePergunta)
     } else {
-        return geraIndicesDificil(perguntasRespondidas)
+        return geraIndicesDificil(indicePergunta)
     }
 }
