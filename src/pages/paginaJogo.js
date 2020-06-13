@@ -8,6 +8,7 @@ import Botoes from '../components/botoesJogo'
 import { connect } from "react-redux"
 import action from "../actions/score"
 import maxAction from "../actions/maxScore"
+import nOfMatches from '../actions/nOfMatches' 
 
 const perguntas = require('../db/questions.json')
 const PaginaJogo = ({ navigation, dispatch, user }) => {
@@ -16,9 +17,10 @@ const PaginaJogo = ({ navigation, dispatch, user }) => {
     const [indicePergunta, geraNovaPergunta] = useState(0)
     const [pulo, setPulo] = useState(0)
     const [buttonPulo, setButtonPulo] = useState(false)
+    const [numeroPartidas, setNumeroPartidas] = useState(0)
     const parar = premio[indicePergunta] / 2
     const errar = premio[indicePergunta] / 4
-
+    
     const numero = geraDificiculdade(indicePergunta)
     console.log('numero: ', numero);
     const pergunta = perguntas[numero]
@@ -38,20 +40,23 @@ const PaginaJogo = ({ navigation, dispatch, user }) => {
         if (indicePergunta > 14) {
             dispatch(action(premio[indicePergunta]))
             dispatch(maxAction(premio[indicePergunta]))
+            dispatch(nOfMatches(user.nOfMatches + 1))
             navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: acertou } })
         } else if (acertou) {
             geraNovaPergunta(indicePergunta + 1)
         } else if (!false && indicePergunta === 0) {
             console.log('perdeu tudo')
+            dispatch(nOfMatches(user.nOfMatches + 1))
             dispatch(action(0))
             navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: acertou } })
         } else {
+            dispatch(nOfMatches(user.nOfMatches + 1))
             dispatch(action(errar))
             testaMaxScore(errar, user.maxScore)
             navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: acertou } })
         }
     }
-
+    
     const pular = () => {
         if (pulo < 3) {
             setPulo(pulo + 1)
@@ -62,10 +67,11 @@ const PaginaJogo = ({ navigation, dispatch, user }) => {
     }
     const parou = () => {
         dispatch(action(parar))
+        dispatch(nOfMatches(user.nOfMatches + 1))
         testaMaxScore(parar, user.maxScore)
         navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: 'PAROU' } })
     }
-
+    
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={'#172178'} />
