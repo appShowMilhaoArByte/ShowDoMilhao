@@ -14,7 +14,7 @@ const Botoes = ({ parou, pular, pulo, indicePergunta, buttonPulo }) => {
     const onPressParar = () => {
         if (indicePergunta === 0) {
             //  Alert.alert('Voce não pode para na primeira pergunta')
-            ToastAndroid.show('Você não pode para na primeira pergunta', 1000)
+            ToastAndroid.show('Você não pode para na primeira pergunta', ToastAndroid.SHORT)
         } else {
             setModalVisible(true)
         }

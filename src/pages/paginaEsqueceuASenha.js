@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity, StatusBar, ScrollView, Alert } from 'react-native'
 import logo from '../images/logo.png'
 import axios from 'axios'
+import validacaoEmail from '../components/validacaoEmail'
 const PaginaLogin = ({ navigation }) => {
 
     const [email, setEmail] = useState('')
@@ -9,25 +10,26 @@ const PaginaLogin = ({ navigation }) => {
     const [confirmaSenha, setConfirmaSenha] = useState('')
     const isFormValid = () => email != '' && senha != '';
     const recuperaSenha = () => {
-        if (!isFormValid()) {
-            return Alert.alert("Preencha os campos obrigatórios!")
-        }
         if (senha !== confirmaSenha) {
             return Alert.alert("As senhas digitadas não coincidem!")
         }
-        axios.get('https://api-showdomilhao.herokuapp.com/players/')
-            .then(resultado => {
-                const usuarios = resultado.data
-                const usuarioLocalizado = usuarios.find(item => item.email === email)
-                if (usuarioLocalizado === undefined) {
-                    Alert.alert('Email não encontrado')
-                } else {
-                    axios.put('https://api-showdomilhao.herokuapp.com/updateSenha', { email: usuarioLocalizado.email, password: senha })
-                    Alert.alert('Senha Alterada')
-                    navigation.navigate('PaginaLogin')
-                }
-            })
-            .catch(e => console.log('error', e))
+        if (!isFormValid()) {
+            return Alert.alert("Preencha os campos obrigatórios!")
+        }else if(validacaoEmail(email)){
+            axios.get('https://api-showdomilhao.herokuapp.com/players/')
+                .then(resultado => {
+                    const usuarios = resultado.data
+                    const usuarioLocalizado = usuarios.find(item => item.email === email)
+                    if (usuarioLocalizado === undefined) {
+                        Alert.alert('Email não encontrado')
+                    } else {
+                        axios.put('https://api-showdomilhao.herokuapp.com/updateSenha', { email: usuarioLocalizado.email, password: senha })
+                        Alert.alert('Senha Alterada')
+                        navigation.navigate('PaginaLogin')
+                    }
+                })
+                .catch(e => console.log('error', e))
+        }
     }
 
     return (
