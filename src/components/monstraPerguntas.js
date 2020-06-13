@@ -1,7 +1,9 @@
 import React from 'react'
 import { Text, View, } from 'react-native'
+import Contador from './contador'
 
-const Perguntas = ({pergunta}) => {
+
+const Perguntas = ({pergunta, indicePergunta, contadorZerou}) => {
     const nomePergunta = pergunta.Name
     return (
         <View style={styles.pergunta}>
@@ -10,13 +12,16 @@ const Perguntas = ({pergunta}) => {
                     nomePergunta
                 }
             </Text>
+            <Contador indicePergunta={indicePergunta} contadorZerou={contadorZerou}/>
         </View>
     )
 }
 const styles = {
     pergunta: {
-        justifyContent: 'center',
+        flexDirection: 'row',
+        // justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'space-around',
         borderWidth: 2,
         backgroundColor: '#9a031e',
         flex: 1,
@@ -26,10 +31,13 @@ const styles = {
         
     },
     perguntaTexto: {
+        flex: 8,
         fontSize: 18,
         color: '#ffffff',
         alignSelf: 'center',
         fontWeight: 'bold',
+        textAlign: 'center',
+
     },
 }
 

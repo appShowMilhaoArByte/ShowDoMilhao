@@ -15,11 +15,11 @@ const PaginaLogin = ({ navigation }) => {
         }
         if (!isFormValid()) {
             return Alert.alert("Preencha os campos obrigatórios!")
-        }else if(validacaoEmail(email)){
+        }else if(validacaoEmail(email.toLowerCase())){
             axios.get('https://api-showdomilhao.herokuapp.com/players/')
                 .then(resultado => {
                     const usuarios = resultado.data
-                    const usuarioLocalizado = usuarios.find(item => item.email === email)
+                    const usuarioLocalizado = usuarios.find(item => item.email === email.toLowerCase())
                     if (usuarioLocalizado === undefined) {
                         Alert.alert('Email não encontrado')
                     } else {
@@ -43,7 +43,7 @@ const PaginaLogin = ({ navigation }) => {
                 <TextInput style={styles.entradaDeTexto}
                     placeholder='  Seu e-mail'
                     placeholderTextColor='gray'
-                    value={email.toLowerCase()}
+                    value={email}
                     keyboardType={'email-address'}
                     onChangeText={text => setEmail(text)}
                 />

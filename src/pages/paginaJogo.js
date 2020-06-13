@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, StatusBar, Alert, ToastAndroid } from 'react-native'
+import { View, StatusBar, Alert, ToastAndroid, BackHandler, Text} from 'react-native'
 import Perguntas from '../components/monstraPerguntas'
 import Alternativas from '../components/alternativas'
 import Posicao from '../components/posicao'
@@ -8,20 +8,30 @@ import Botoes from '../components/botoesJogo'
 import { connect } from "react-redux"
 import action from "../actions/score"
 import maxAction from "../actions/maxScore"
-import nOfMatches from '../actions/nOfMatches' 
+import nOfMatches from '../actions/nOfMatches'
+import Contador from '../components/contador'
 
 const perguntas = require('../db/questions.json')
 const PaginaJogo = ({ navigation, dispatch, user }) => {
-    const premio = [1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000, 400000, 500000, 1000000]
 
+    // useEffect(() => {
+    //     function botao() {
+    //         BackHandler.addEventListener('hardwareBackPress', () => {
+    //             ToastAndroid.show('Você não pode voltar, continue jogando', ToastAndroid.SHORT)
+    //             return false
+    //         })
+    //     }
+    //     return () => BackHandler.addEventListener('hardwareBackPress', () => { return false })
+    // })
+
+    const premio = [1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000, 400000, 500000, 1000000]
     const [indicePergunta, geraNovaPergunta] = useState(0)
+    const [perguntasRespondidas, setPerguntasRespondidas] = useState({})
     const [pulo, setPulo] = useState(0)
     const [buttonPulo, setButtonPulo] = useState(false)
     const parar = premio[indicePergunta] / 2
     const errar = premio[indicePergunta] / 4
-    
-    const numero = geraDificiculdade(indicePergunta)
-    console.log('numero: ', numero);
+    const numero = geraDificiculdade(perguntasRespondidas, indicePergunta)
     const pergunta = perguntas[numero]
     const alternativa = pergunta.Answers
     const correta = pergunta.CorrectAnswer
@@ -32,7 +42,8 @@ const PaginaJogo = ({ navigation, dispatch, user }) => {
         }
     }
 
-    const notificaResposta = (acertou) => {
+
+    const respostaDaPergunta = (acertou) => {
         if (indicePergunta === 14) {
             setButtonPulo(true)
         }
@@ -44,7 +55,6 @@ const PaginaJogo = ({ navigation, dispatch, user }) => {
         } else if (acertou) {
             geraNovaPergunta(indicePergunta + 1)
         } else if (!false && indicePergunta === 0) {
-            console.log('perdeu tudo')
             dispatch(nOfMatches(user.nOfMatches + 1))
             dispatch(action(0))
             navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: acertou } })
@@ -55,7 +65,7 @@ const PaginaJogo = ({ navigation, dispatch, user }) => {
             navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: acertou } })
         }
     }
-    
+
     const pular = () => {
         if (pulo < 3) {
             setPulo(pulo + 1)
@@ -70,13 +80,21 @@ const PaginaJogo = ({ navigation, dispatch, user }) => {
         testaMaxScore(parar, user.maxScore)
         navigation.navigate('Parou', { data: { indicePremio: indicePergunta, resposta: 'PAROU' } })
     }
-    
+
+    const contadorZerou = () =>{
+        Alert.alert('Tempo esgotado, voce perdeu tudo')
+        dispatch(nOfMatches(user.nOfMatches + 1))
+        dispatch(action(0))
+        navigation.navigate('Parou', { data: { indicePremio: 0, resposta: 'PAROU' } })
+    }
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={'#172178'} />
-            <Perguntas pergunta={pergunta} />
-            <Alternativas alternativas={alternativa} correta={correta} notificaResposta={notificaResposta} />
-            <Posicao indice={indicePergunta} notificaResposta={notificaResposta} />
+            <Perguntas pergunta={pergunta} indicePergunta={indicePergunta} contadorZerou={contadorZerou}/>
+            {/* <Contador indicePergunta={indicePergunta} contadorZerou={contadorZerou}/> */}
+            <Alternativas alternativas={alternativa} correta={correta} respostaDaPergunta={respostaDaPergunta} />
+            <Posicao indice={indicePergunta} />
             <Botoes pular={pular} pulo={pulo} parou={parou} indicePergunta={indicePergunta} buttonPulo={buttonPulo} />
         </View>
     )

@@ -19,8 +19,8 @@ const PaginaCadastro = ({ navigation }) => {
         }
         if (!isFormValid()) {
             return Alert.alert("Preencha os campos obrigatórios!")
-        }else if(validacaoEmail(email)){
-            cadastrar(email, login, senha, confirmaSenha)
+        }else if(validacaoEmail(email.toLowerCase())){
+            cadastrar(email.toLowerCase(), login, senha, confirmaSenha)
                 .then(resposta => {
                     console.log(resposta)
                     navigation.navigate('PaginaLogin')
@@ -43,7 +43,7 @@ const PaginaCadastro = ({ navigation }) => {
                     <TextInput style={styles.entradaDeTexto}
                         placeholder='  Seu e-mail'
                         placeholderTextColor='gray'
-                        value={email.toLowerCase()}
+                        value={email}
                         keyboardType={'email-address'}
                         onChangeText={email => { setEmail(email) }}
                     />
