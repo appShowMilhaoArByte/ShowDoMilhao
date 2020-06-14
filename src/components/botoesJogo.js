@@ -1,16 +1,11 @@
 import React, { useState } from 'react'
 import { Text, View, Modal, TouchableOpacity, ToastAndroid } from 'react-native'
 import { Button } from 'react-native-elements'
-import BotaoPararPular from './botaoPularParar';
-import { connect } from "react-redux"
-import action from "../actions/score"
-import maxAction from "../actions/maxScore"
+import ModalParar from './modalBotaoParar';
 
-const Botoes = ({ parou, pular, pulo, indicePergunta, buttonPulo }) => {
-    const premio = [1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000, 400000, 500000, 1000000]
-    const parar = premio[indicePergunta] / 2
+const Botoes = ({ onPressParou, onPresspular, pulo, indicePergunta, buttonPulo }) => {
+
     const [modalVisible, setModalVisible] = useState(false);
-
     const onPressParar = () => {
         if (indicePergunta === 0) {
             //  Alert.alert('Voce não pode para na primeira pergunta')
@@ -20,33 +15,29 @@ const Botoes = ({ parou, pular, pulo, indicePergunta, buttonPulo }) => {
         }
     }
 
+    const visible = () => {
+        setModalVisible(!modalVisible)
+    }
+
     return (
         <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: 20 }}>
-            <Button title={`PULAR ${pulo}/3`} onPress={pular} disabled={buttonPulo} type='outline' buttonStyle={styles.styleButton} titleStyle={styles.buttonText} />
-            <Button title='PARAR' onPress={onPressParar} type='outline' buttonStyle={styles.styleButton} titleStyle={styles.buttonText} />
-            <Modal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={{ fontSize: 22, color: '#9a031e' }}>Quer mesmo parar o jogo ?</Text>
-                        <Text style={{ fontSize: 22, color: '#9a031e' }}>Voce vai ficar com: R${premio[indicePergunta] == 1000 ? 0 : parar} </Text>
-                        <View style={{ flexDirection: "row" }}>
-                            <TouchableOpacity style={styles.openButton} onPress={() => setModalVisible(!modalVisible)}>
-                                <Text style={{ fontSize: 15, color: '#ffdd55', fontWeight: "bold" }}>Cancelar</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={[styles.openButton, { ...styles, marginLeft: 10 }]}
-                                onPress={() => {
-                                    setModalVisible(!modalVisible), parou()
-                                }} >
-                                <Text style={{ fontSize: 15, color: '#ffdd55', fontWeight: "bold" }}>Confirmar</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
+            <Button title={`PULAR ${pulo}/3`}
+                onPress={onPresspular}
+                disabled={buttonPulo}
+                type='outline'
+                buttonStyle={styles.styleButton}
+                titleStyle={styles.buttonText} />
+            <Button title='PARAR'
+                onPress={onPressParar}
+                type='outline'
+                buttonStyle={styles.styleButton}
+                titleStyle={styles.buttonText} />
+            <ModalParar
+                indicePergunta={indicePergunta}
+                modalVisible={modalVisible}
+                setModalVisible={visible}
+                onPressParou={onPressParou}
+            />
         </View>
     )
 }
@@ -73,35 +64,7 @@ const styles = {
         textAlign: "center",
         fontSize: 20,
         color: '#ffffff',
-    },
-    openButton: {
-        backgroundColor: "#172178",
-        borderRadius: 20,
-        padding: 15,
-        elevation: 15,
-        marginTop: 10
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-    },
-    modalView: {
-        margin: 20,
-        backgroundColor: "#ffffff",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5
-    },
+    }
 }
 
 

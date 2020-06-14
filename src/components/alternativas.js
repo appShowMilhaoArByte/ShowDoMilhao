@@ -15,9 +15,11 @@ const Alternativas = ({ alternativas, correta, respostaDaPergunta }) => {
         return (
             <View key={alter} style={styles.container}>
                 <View style={styles.container}>
-                    <TouchableOpacity style={styles.alternativas} onPress={() => {
-                        visible(), setResposta(alter)
-                    }}>
+                    <TouchableOpacity
+                        style={styles.alternativas}
+                        onPress={() => {
+                            visible(), setResposta(alter)
+                        }}>
                         <Text style={styles.alternativasNum}>{`${index + 1}`}</Text>
                         <Text style={styles.alternativasTexto}> {alter}</Text>
                     </TouchableOpacity>
@@ -37,7 +39,7 @@ const Alternativas = ({ alternativas, correta, respostaDaPergunta }) => {
                 respostaEscolhida={respostaEscolhida}
                 respostaCerta={respostaCerta}
                 setModalVisible={visible}
-                />
+            />
         </View>
     )
 }
@@ -64,13 +66,13 @@ const styles = {
         flex: 7,
         textAlign: 'center',
         height: 35,
-        borderColor:'#ffdd55'
+        borderColor: '#ffdd55'
     },
     alternativasNum: {
         borderColor: "#ffdd55",
-        borderWidth: 2,      
+        borderWidth: 2,
         lineHeight: 30,
-        borderRadius: 40,       
+        borderRadius: 40,
         fontSize: 20,
         backgroundColor: '#9a031e',
         color: '#ffffff',

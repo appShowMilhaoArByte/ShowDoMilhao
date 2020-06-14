@@ -9,7 +9,7 @@ import axios from 'axios'
 
 
 const PaginaFimDeJogo = ({ navigation, route, user, question, dispatch }) => {
-    console.log('question: ', question);
+    console.log('user fim : ', user);
     const { indicePremio, resposta } = route.params.data
 
     axios.put(`https://api-showdomilhao.herokuapp.com/players/${user.id}`, { score: user.score, maxScore: user.maxScore, nOfMatches: user.nOfMatches })
@@ -28,17 +28,17 @@ const PaginaFimDeJogo = ({ navigation, route, user, question, dispatch }) => {
             </View>
             <View style={styles.containerButton}>
                 <TouchableOpacity style={styles.button}
-                    onPress={() => { 
+                    onPress={() => {
                         dispatch(incrementa(0))
-                        navigation.push('PaginaJogo') 
+                        navigation.push('PaginaJogo')
                     }}>
                     <Text style={styles.buttonText}>Jogar Novamente</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button}
-                    onPress={() => { 
+                    onPress={() => {
                         dispatch(incrementa(0))
-                        navigation.navigate('PaginaHome') 
-                        }}>
+                        navigation.navigate('PaginaHome')
+                    }}>
                     <Text style={styles.buttonText}>Menu</Text>
                 </TouchableOpacity>
             </View>

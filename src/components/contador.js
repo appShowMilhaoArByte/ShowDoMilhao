@@ -24,7 +24,7 @@ class Contador extends React.Component {
         if(this.props.indicePergunta > this.state.indice){
             this.setState({count: 20, indice:this.props.indicePergunta })
         }
-        if (this.state.count === 0 && this.props.gambis === 0) {
+        if (this.state.count === 0 && this.props.paraContador === 0) {
             clearInterval(this.contador);
             this.setState({ count: 20 })
             this.props.contadorZerou()

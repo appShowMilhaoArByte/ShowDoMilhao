@@ -25,7 +25,7 @@ const PaginaLogin = ({ navigation, dispatch }) => {
         if (!isLoginValid()) {
             return Alert.alert("Preencha os campos obrigatórios!")
         } else if (validacaoEmail(login.toLowerCase())) {
-            // setVisible(true)
+            setVisible(true)
             logon(login.toLowerCase(), senha)
                 .then(usuario => {
                     if (usuario === undefined) {
@@ -33,11 +33,11 @@ const PaginaLogin = ({ navigation, dispatch }) => {
                         Toast()
                         // Alert.alert('Dados incorretos')
                     } else {
-                        // setTimeout(() => {
+                        setTimeout(() => {
                             dispatch(action(usuario))
                             navigation.navigate('PaginaHome')
-                            // setVisible(false)
-                        // }, 1000);
+                            setVisible(false)
+                        }, 1000);
                     }
                 })
                 .catch(err => Alert.alert('Não está respondendo. ', err.message))
