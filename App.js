@@ -18,11 +18,11 @@ import PaginaEsqueceuASenha from './src/pages/paginaEsqueceuASenha'
 import PaginaPerfil from './src/pages/paginaPerfil';
 import reducer from './src/reducers/reducerIndex'
 
-
 const Stack = createStackNavigator()
 const store = createStore(reducer)
 
 function App() {
+
   return (
     <Provider store={store}>
       <NavigationContainer>

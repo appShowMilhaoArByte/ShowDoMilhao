@@ -1,8 +1,10 @@
 import React from 'react'
 import { Text, View, Image, StatusBar} from 'react-native'
 import Botao from '../components/Botao'
+import {stopSound} from '../components/soundsFunctions'
 
 const PaginaHome = ({ navigation }) => {
+
     return (
         <View style={styles.container} >
             <StatusBar backgroundColor={'#172178'}/>

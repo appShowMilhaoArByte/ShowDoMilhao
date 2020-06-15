@@ -10,30 +10,10 @@ import action from "../actions/score"
 import maxAction from "../actions/maxScore"
 import nOfMatches from '../actions/nOfMatches'
 import incrementa from '../actions/incrementa'
+import { CertaResposta, QuePenaVoceErrou } from '../components/soundsFunctions'
 
 const perguntas = require('../db/questions.json')
 const PaginaJogo = ({ navigation, dispatch, user, question }) => {
-
-    // useEffect(() => {
-
-    //         BackHandler.addEventListener('hardwareBackPress', () => {
-    //             // ToastAndroid.show('Você não pode voltar, continue jogando', ToastAndroid.SHORT)
-    //             return true
-    //         })
-
-    //     return () => BackHandler.addEventListener('hardwareBackPress', () => { return false })
-    // },[])
-
-    // useEffect(() => {
-    //     reiniciaJogo()
-    //     return () => reiniciaJogo()
-    // }, [])
-
-    // const reiniciaJogo = () => {
-    //     console.log('reiniciaJogo: ');
-    //      setPerguntasRespondidas({})
-    //      setPulo(0)
-    // }
 
     const premio = [1000, 2000, 3000, 4000, 5000, 10000, 20000, 30000, 40000, 50000, 100000, 200000, 300000, 400000, 500000, 1000000]
     const parar = premio[question] / 2
@@ -56,6 +36,11 @@ const PaginaJogo = ({ navigation, dispatch, user, question }) => {
     }
 
     const respostaDaPergunta = (resposta) => {
+        if (resposta) {
+            CertaResposta()
+        }else{
+            QuePenaVoceErrou()
+        }
         if (question === 14) {
             setButtonPulo(true)
         }
@@ -112,7 +97,7 @@ const PaginaJogo = ({ navigation, dispatch, user, question }) => {
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor={'#172178'} />
-            <Perguntas pergunta={pergunta} indicePergunta={question} contadorZerou={contadorZerou} paraContador={paraContador} />
+            <Perguntas pergunta={pergunta} indicePergunta={question} contadorZerou={contadorZerou} paraContador={paraContador}/>
             <Alternativas alternativas={alternativa} correta={correta} respostaDaPergunta={respostaDaPergunta} />
             <Posicao indice={question} />
             <Botoes onPresspular={onPresspular} pulo={pulo} onPressParou={onPressParou} indicePergunta={question} buttonPulo={buttonPulo} />

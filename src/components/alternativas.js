@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Text, View, TouchableOpacity, Alert, Modal } from 'react-native'
 import ModalAlternativas from './modalAlternativas'
+import {EstaCertoDisso} from './soundsFunctions'
 const Alternativas = ({ alternativas, correta, respostaDaPergunta }) => {
 
     const respostaCerta = alternativas[correta]
@@ -18,7 +19,7 @@ const Alternativas = ({ alternativas, correta, respostaDaPergunta }) => {
                     <TouchableOpacity
                         style={styles.alternativas}
                         onPress={() => {
-                            visible(), setResposta(alter)
+                            visible(), setResposta(alter), EstaCertoDisso()
                         }}>
                         <Text style={styles.alternativasNum}>{`${index + 1}`}</Text>
                         <Text style={styles.alternativasTexto}> {alter}</Text>
