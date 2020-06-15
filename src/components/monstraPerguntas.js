@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, View, } from 'react-native'
 import Contador from './contador'
-
+import {somPergunta} from './soundsFunctions'
 
 const Perguntas = ({pergunta, indicePergunta, contadorZerou, paraContador}) => {
+    
+    useEffect(()=>{
+        somPergunta()
+    },[indicePergunta])
+    
     const nomePergunta = pergunta.Name
+
     return (
         <View style={styles.pergunta}>
             <Text style={styles.perguntaTexto}>

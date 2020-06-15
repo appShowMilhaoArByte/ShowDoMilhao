@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, View, TouchableOpacity, Modal } from 'react-native'
+import { CertaResposta, QuePenaVoceErrou } from '../components/soundsFunctions'
 
 const ModalAlternativas = ({ notificaResposta, visible, respostaEscolhida, respostaCerta, setModalVisible }) => {
     return (
@@ -10,7 +11,7 @@ const ModalAlternativas = ({ notificaResposta, visible, respostaEscolhida, respo
         >
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
-                    <Text style={{ fontSize: 22, textAlign: "center" , color:'#9a031e'}}>Você está certo disso? Posso perguntar ?</Text>
+                    <Text style={{ fontSize: 22, textAlign: "center", color: '#9a031e' }}>Você está certo disso? Posso perguntar ?</Text>
                     <View style={{ flexDirection: "row" }}>
                         <TouchableOpacity style={styles.openButton} onPress={() => setModalVisible()}>
                             <Text style={{ color: '#ffdd55', fontWeight: "bold" }}>Cancelar</Text>
@@ -44,7 +45,7 @@ const styles = {
     modalView: {
         margin: 20,
         backgroundColor: "#ffffff",
-        
+
         borderRadius: 20,
         padding: 35,
         alignItems: "center",

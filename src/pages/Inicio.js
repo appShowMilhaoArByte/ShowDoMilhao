@@ -1,22 +1,23 @@
-import React from 'react';
-import { StyleSheet, View, TouchableOpacity, Text, Image, StatusBar} from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, View, TouchableOpacity, Text, Image, StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import logo from '../images/logo.png'
 
-function Inicio({navigation}) {
+function Inicio({ navigation }) {
+
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar backgroundColor={'#172178'}/>
+            <StatusBar backgroundColor={'#172178'} />
             <View style={styles.logoView}>
-            <Image
-                style={styles.logo}
-                source={logo}
-            />
+                <Image
+                    style={styles.logo}
+                    source={logo}
+                />
             </View>
             <View style={styles.buttonView}>
-                <TouchableOpacity 
+                <TouchableOpacity
                     style={styles.button}
-                    onPress={() => {navigation.navigate('PaginaLogin')}}>
+                    onPress={() => { navigation.navigate('PaginaLogin') }}>
                     <Text style={styles.buttonText}>Iniciar</Text>
                 </TouchableOpacity>
             </View>
