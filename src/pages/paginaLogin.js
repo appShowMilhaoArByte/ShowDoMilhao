@@ -7,7 +7,6 @@ import action from '../actions/login'
 import logon from '../components/logon'
 import validacaoEmail from '../components/validacaoEmail'
 
-
 const PaginaLogin = ({ navigation, dispatch }) => {
     const [login, setLogin] = useState('')
     const [senha, setSenha] = useState('')
@@ -111,6 +110,8 @@ const styles = StyleSheet.create({
     caixaDeLogin: {
         width: '85%',
         flex: 1,
+        marginBottom: 30,
+    
         backgroundColor: 'gold',
         alignSelf: 'center',
         borderRadius: 15,
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
         height: 30,
         borderWidth: 2,
         borderColor: '#172178',
-        borderRadius: 5,
+        borderRadius: 12,
         marginVertical: 8,
         marginHorizontal: 2,
         backgroundColor: '#c4c4c4',
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
     },
     textoLogin: {
         paddingHorizontal: 6,
-        marginTop: 20,
+        marginTop: 5,
         fontSize: 16,
         fontWeight: 'bold',
     },
