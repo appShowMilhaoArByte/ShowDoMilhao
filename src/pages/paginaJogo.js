@@ -46,9 +46,14 @@ const PaginaJogo = ({ navigation, dispatch, user, question }) => {
         }
         if (question > 14) {
             Acertou()
+            if(resposta){
+                dispatch(maxAction(premio[question]))
+                dispatch(action(premio[question]))
+            }else{
+                testaMaxScore(errar, user.maxScore)
+                dispatch(action(errar))
+            }
             setParaContador(1)
-            dispatch(action(premio[question]))
-            dispatch(maxAction(premio[question]))
             dispatch(nOfMatches(user.nOfMatches + 1))
             navigation.navigate('PaginaFimdeDeJogo', { data: { indicePremio: question, resposta: resposta } })
         } else if (resposta) {
