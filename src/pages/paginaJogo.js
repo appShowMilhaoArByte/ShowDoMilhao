@@ -10,7 +10,7 @@ import action from "../actions/score"
 import maxAction from "../actions/maxScore"
 import nOfMatches from '../actions/nOfMatches'
 import incrementa from '../actions/incrementa'
-import { CertaResposta, QuePenaVoceErrou } from '../components/soundsFunctions'
+import { CertaResposta, QuePenaVoceErrou, Acertou } from '../components/soundsFunctions'
 
 const perguntas = require('../db/questions.json')
 const PaginaJogo = ({ navigation, dispatch, user, question }) => {
@@ -36,7 +36,7 @@ const PaginaJogo = ({ navigation, dispatch, user, question }) => {
     }
 
     const respostaDaPergunta = (resposta) => {
-        if (resposta) {
+        if (resposta && question < 15) {
             CertaResposta()
         }else{
             QuePenaVoceErrou()
@@ -45,6 +45,7 @@ const PaginaJogo = ({ navigation, dispatch, user, question }) => {
             setButtonPulo(true)
         }
         if (question > 14) {
+            Acertou()
             setParaContador(1)
             dispatch(action(premio[question]))
             dispatch(maxAction(premio[question]))

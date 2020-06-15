@@ -3,33 +3,35 @@ import { View, Image, StatusBar } from 'react-native'
 import CampoPosicao from '../components/CampoPosicao';
 import BotaoPararPular from '../components/botaoPularParar';
 import { connect } from 'react-redux'
+import { ScrollView } from 'react-native-gesture-handler';
 
 const PaginaPerfil = ({ navigation, user}) => {
     console.log('user: ', user);
     return (
         <View style={styles.container} >
-            <StatusBar backgroundColor={'#172178'} />
-            <Image
-                source={require('../images/logo.png')}
-                style={styles.logo}
-            />
-            <Image
-                source={require('../images/ninja.png')}
-                style={styles.iconInput}
-            />
-            <CampoPosicao title={user.nickname[0].toUpperCase() + user.nickname.slice(1) }/>
-            <View style={styles.containerButton}>
+            <ScrollView style={{flex: 1}}>
+                <StatusBar backgroundColor={'#172178'} />
+                <Image
+                    source={require('../images/logo.png')}
+                    style={styles.logo}
+                />
+                <Image
+                    source={require('../images/ninja.png')}
+                    style={styles.iconInput}
+                />
+                <CampoPosicao title={user.nickname[0].toUpperCase() + user.nickname.slice(1) }/>
+                <View style={styles.containerButton}>
 
-                <CampoPosicao title={`Maior Pontuação --- > ${user.maxScore}`}  />
-                <CampoPosicao title={`Pontuação Atual --- > ${user.score}`}  />
-                <CampoPosicao title={`Partidas Jogadas --- > ${user.nOfMatches}`} />
-                <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: 20 }}>
-                    <BotaoPararPular title={'Jogar'} onPress={() => { navigation.navigate('PaginaJogo') }} />
-                    <BotaoPararPular title={'Home'} onPress={() => { navigation.navigate('PaginaHome') }} />
+                    <CampoPosicao title={`Maior Pontuação --- > ${user.maxScore}`}  />
+                    <CampoPosicao title={`Pontuação Atual --- > ${user.score}`}  />
+                    <CampoPosicao title={`Partidas Jogadas --- > ${user.nOfMatches}`} />
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: 20 }}>
+                        <BotaoPararPular title={'Jogar'} onPress={() => { navigation.navigate('PaginaJogo') }} />
+                        <BotaoPararPular title={'Home'} onPress={() => { navigation.navigate('PaginaHome') }} />
 
+                    </View>
                 </View>
-            </View>
-
+            </ScrollView>
         </View>
     )
 }
