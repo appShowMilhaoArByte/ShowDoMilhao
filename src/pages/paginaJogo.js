@@ -36,20 +36,16 @@ const PaginaJogo = ({ navigation, dispatch, user, question }) => {
     }
 
     const respostaDaPergunta = (resposta) => {
-        if (resposta && question < 15) {
-            CertaResposta()
-        }else{
-            QuePenaVoceErrou()
-        }
         if (question === 14) {
             setButtonPulo(true)
         }
         if (question > 14) {
-            Acertou()
             if(resposta){
+                Acertou()
                 dispatch(maxAction(premio[question]))
                 dispatch(action(premio[question]))
             }else{
+                QuePenaVoceErrou()
                 testaMaxScore(errar, user.maxScore)
                 dispatch(action(errar))
             }
@@ -57,14 +53,17 @@ const PaginaJogo = ({ navigation, dispatch, user, question }) => {
             dispatch(nOfMatches(user.nOfMatches + 1))
             navigation.navigate('PaginaFimdeDeJogo', { data: { indicePremio: question, resposta: resposta } })
         } else if (resposta) {
+            CertaResposta()
             dispatch(incrementa(question + 1))
         } else if (!false && question === 0) {
             setParaContador(1)
+            QuePenaVoceErrou()
             dispatch(nOfMatches(user.nOfMatches + 1))
             dispatch(action(0))
             navigation.navigate('PaginaFimdeDeJogo', { data: { indicePremio: question, resposta: resposta } })
         } else {
             setParaContador(1)
+            QuePenaVoceErrou()
             dispatch(nOfMatches(user.nOfMatches + 1))
             dispatch(action(errar))
             testaMaxScore(errar, user.maxScore)

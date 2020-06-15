@@ -5,25 +5,25 @@ import BotaoPararPular from '../components/botaoPularParar';
 import { connect } from 'react-redux'
 import { ScrollView } from 'react-native-gesture-handler';
 
-const PaginaPerfil = ({ navigation, user}) => {
+const PaginaPerfil = ({ navigation, user }) => {
     console.log('user: ', user);
     return (
         <View style={styles.container} >
-            <ScrollView style={{flex: 1}}>
-                <StatusBar backgroundColor={'#172178'} />
-                <Image
-                    source={require('../images/logo.png')}
-                    style={styles.logo}
-                />
-                <Image
-                    source={require('../images/ninja.png')}
-                    style={styles.iconInput}
-                />
-                <CampoPosicao title={user.nickname[0].toUpperCase() + user.nickname.slice(1) }/>
+            <StatusBar backgroundColor={'#172178'} />
+            <Image
+                source={require('../images/logo.png')}
+                style={styles.logo}
+            />
+            <Image
+                source={require('../images/ninja.png')}
+                style={styles.iconInput}
+            />
+            <ScrollView style={{ flex: 1 }}>
+                <CampoPosicao title={user.nickname[0].toUpperCase() + user.nickname.slice(1)} />
                 <View style={styles.containerButton}>
 
-                    <CampoPosicao title={`Maior Pontuação --- > ${user.maxScore}`}  />
-                    <CampoPosicao title={`Pontuação Atual --- > ${user.score}`}  />
+                    <CampoPosicao title={`Maior Pontuação --- > ${user.maxScore}`} />
+                    <CampoPosicao title={`Pontuação Atual --- > ${user.score}`} />
                     <CampoPosicao title={`Partidas Jogadas --- > ${user.nOfMatches}`} />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', paddingVertical: 20 }}>
                         <BotaoPararPular title={'Jogar'} onPress={() => { navigation.navigate('PaginaJogo') }} />
@@ -67,7 +67,7 @@ const styles = {
 
 }
 
-const mapProps = ( store ) => {
+const mapProps = (store) => {
     return {
         user: store.reducer.user,
     }
